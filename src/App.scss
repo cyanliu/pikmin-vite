@@ -46,12 +46,6 @@ $padding: 4px;
   }
 }
 
-.pointy {
-  width: 2px;
-  height: 2px;
-  position: absolute;
-}
-
 .steps-container {
   display: flex;
   flex-direction: column;
@@ -61,7 +55,7 @@ $padding: 4px;
   display: flex;
   flex-direction: row;
   padding: $padding;
-  width: 60vw;
+  width: 81vw;
   justify-content: flex-start;
   &:nth-child(even) {
     background-color: white;
@@ -72,5 +66,5 @@ $padding: 4px;
 }
 
 .goal {
-  width: 20vw;
+  width: 27vw;
 }

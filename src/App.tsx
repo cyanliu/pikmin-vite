@@ -24,7 +24,7 @@ var bigOlThing = [
   ],
   ["Plant 2000 Blue Peony", "Plant 2000 Calla Lily", "Destroy 5 Mushrooms"],
 ];
-export type MyObject = { [key: string]: String[] };
+export type MyObject = { [key: string]: string[] };
 var bigOlObj: MyObject = {};
 var stageIncrement = 1;
 var miniStep = 1;
@@ -52,9 +52,9 @@ function App() {
       <div className="body">
         <div className="stage-container">
           <Stage stageNum={1} stageGoals={bigOlObj}></Stage>
-          {/* <Stage stageNum={2}></Stage>
-          <Stage stageNum={3}></Stage>
-          <Stage stageNum={4}></Stage> */}
+          <Stage stageNum={2} stageGoals={bigOlObj}></Stage>
+          <Stage stageNum={3} stageGoals={bigOlObj}></Stage>
+          <Stage stageNum={4} stageGoals={bigOlObj}></Stage>
         </div>
       </div>
     </>
