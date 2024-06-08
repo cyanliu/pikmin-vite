@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from "react";
-import { MyObject } from "../App";
+import { MyObject } from "../challenge_helper";
 
 type StageProps = {
   stageNum: number;
