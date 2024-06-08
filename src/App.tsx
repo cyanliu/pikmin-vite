@@ -1,5 +1,5 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React from "react";
+import "./App.scss";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         </header>
       </div>
       <div>
-        <div class="box"></div>
+        <div className="box"></div>
       </div>
     </>
   );
