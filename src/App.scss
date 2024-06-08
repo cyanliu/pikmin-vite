@@ -46,6 +46,12 @@ $padding: 4px;
   }
 }
 
+.pointy {
+  width: 2px;
+  height: 2px;
+  position: absolute;
+}
+
 .steps-container {
   display: flex;
   flex-direction: column;
