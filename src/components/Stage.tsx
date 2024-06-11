@@ -4,6 +4,7 @@ import { MyObject } from "../challenge_helper";
 type StageProps = {
   stageNum: number;
   stageGoals: MyObject;
+  currStageStep: string;
 };
 
 var test: { [key: string]: string[] } = {
@@ -14,7 +15,11 @@ var test: { [key: string]: string[] } = {
   "2.1": ["something else"],
 };
 
-export default function Stage({ stageNum, stageGoals }: StageProps) {
+export default function Stage({
+  stageNum,
+  stageGoals,
+  currStageStep,
+}: StageProps) {
   /* stages have 4 steps with n number of goals per step */
   var steps: string[][] = [];
 
@@ -23,11 +28,17 @@ export default function Stage({ stageNum, stageGoals }: StageProps) {
     steps.push(stageGoals[idx]);
   }
 
+  let currStage = currStageStep.split(".")[0];
+  let currStep = currStageStep.split(".")[1];
   console.log(steps);
   return (
     <>
       <div className={"stage" + stageNum}>
-        <div className="stage-name">
+        <div
+          className={
+            "stage-name " + (currStage === String(stageNum) ? "selected" : "")
+          }
+        >
           <span>Stage {stageNum}</span>
         </div>
         <div className="steps-container">
@@ -38,7 +49,17 @@ export default function Stage({ stageNum, stageGoals }: StageProps) {
             }
             return (
               <>
-                <div className="step">{goals}</div>
+                <div
+                  className={
+                    "step " +
+                    (currStage === String(stageNum) &&
+                    currStep === String(idx + 1)
+                      ? "selected"
+                      : "")
+                  }
+                >
+                  {goals}
+                </div>
               </>
             );
           })}
