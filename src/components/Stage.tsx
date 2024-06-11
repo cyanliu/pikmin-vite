@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactElement, ReactNode, useState } from "react";
 import { MyObject } from "../challenge_helper";
 
 type StageProps = {
@@ -15,27 +15,30 @@ var test: { [key: string]: string[] } = {
 };
 
 export default function Stage({ stageNum, stageGoals }: StageProps) {
-  var stepsSequence: string[][] = [];
+  /* stages have 4 steps with n number of goals per step */
+  var steps: string[][] = [];
 
   for (let c = 1; c <= 4; c++) {
     let idx = stageNum + "." + c;
-    stepsSequence.push(stageGoals[idx]);
+    steps.push(stageGoals[idx]);
   }
 
-  console.log(stepsSequence);
+  console.log(steps);
   return (
     <>
       <div className={"stage" + stageNum}>
-        <div className="stage-name">Stage {stageNum}</div>
+        <div className="stage-name">
+          <span>Stage {stageNum}</span>
+        </div>
         <div className="steps-container">
-          {stepsSequence.map((goalsInStep, idx) => {
-            let goalRows = [];
+          {steps.map((goalsInStep, idx) => {
+            let goals: ReactElement[] = [];
             for (let goal of goalsInStep) {
-              goalRows.push(<div className="goal">{goal}</div>);
+              goals.push(<div className="goal">{goal}</div>);
             }
             return (
               <>
-                <div className="step">{goalRows}</div>
+                <div className="step">{goals}</div>
               </>
             );
           })}

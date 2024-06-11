@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.scss";
 import Stage from "./components/Stage";
 import bigOlObj from "./challenge_helper";
 
 function App() {
+  const [currStep, setCurrStep] = useState<number>(1);
+
   return (
     <>
       <div className="App">
