@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode, useState } from "react";
-import { MyObject } from "../challenge_helper";
+import { TaskType, MyObject } from "../challenge_helper";
 
 type StageProps = {
   stageNum: number;
@@ -39,13 +39,19 @@ export default function Stage({
             "stage-name " + (currStage === String(stageNum) ? "selected" : "")
           }
         >
-          <span>Stage {stageNum}</span>
+          <h2>Stage {stageNum}</h2>
         </div>
         <div className="steps-container">
           {steps.map((goalsInStep, idx) => {
             let goals: ReactElement[] = [];
             for (let goal of goalsInStep) {
-              goals.push(<div className="goal">{goal}</div>);
+              let typedGoal: TaskType = goal.split(" ")[0] as TaskType;
+
+              goals.push(
+                <div className="goal">
+                  <span className="">{goal}</span>
+                </div>
+              );
             }
             return (
               <>

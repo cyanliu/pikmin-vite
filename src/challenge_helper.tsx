@@ -1,29 +1,51 @@
-const enum FlowerColor {
-  Blue = "Blue",
-  Red = "Red",
-  Yellow = "Yellow",
-  White = "White",
-  Any = "Any", // ????
-}
+export type FlowerColor = "Blue" | "Red" | "Yellow" | "White" | "Any";
+export type FlowerSpecies = "Carnation" | "Hydrangea" | "Any";
 
-const enum FlowerType {
-  Calla = "Calla",
-  Peony = "Peon",
-  Any = "Any",
-}
+export type TaskType = "Walk" | "Grow" | "Complete" | "Plant" | "Destroy";
 
-// first word of goal
-const enum GoalType {
-  Walk = "Walk",
-  Plant = "Plant",
-  Expeditions = "Complete",
-  Mushrooms = "Destroy",
-  Grow = "Grow",
-}
+type BasicTask = {
+  label: string;
+  action: "Walk" | "Grow" | "Complete" | "Destroy";
+};
 
-// if walk | plant | expeditions | mushrooms | grow, set count
-// if plant | set flowerType & flowerColor
-// array of arrays?
+type FlowerTask = {
+  label: string;
+  action: "Plant";
+  flower: { color: FlowerColor; species: FlowerSpecies };
+};
+
+type Task = BasicTask | FlowerTask;
+
+let tasks: Task[] = [
+  { label: "Walk 1000 steps", action: "Walk" },
+  { label: "Grow 2 Pikmin", action: "Grow" },
+  { label: "Complete 2 Expeditions", action: "Complete" },
+  {
+    label: "Plant 1000 Flowers",
+    action: "Plant",
+    flower: { color: "Any", species: "Any" },
+  },
+  { label: "Destroy 2 Mushrooms", action: "Destroy" },
+];
+
+// while iterating through tasksList, I (think I) want each element
+// to be tied to a type? ...
+
+function getStylingClass(task: Task): string {
+  const action = task.action;
+  switch (action) {
+    case "Walk":
+      return "steps";
+    case "Grow":
+      return "pikmin";
+    case "Complete":
+      return "expedition";
+    case "Plant":
+      return "flower";
+    case "Destroy":
+      return "mushroom";
+  }
+}
 
 var bigOlThing = [
   ["Walk 1000 steps"],
