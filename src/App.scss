@@ -90,6 +90,7 @@ $padding: 0.5rem;
 .steps-container {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .selected {
@@ -101,7 +102,7 @@ $padding: 0.5rem;
   display: flex;
   flex-direction: row;
   padding: $padding;
-  width: 81vw;
+  // flex-grow: 1;
   justify-content: flex-start;
   &:nth-child(even) {
     background-color: white;
@@ -112,5 +113,5 @@ $padding: 0.5rem;
 }
 
 .goal {
-  width: 27vw;
+  width: 33%;
 }
