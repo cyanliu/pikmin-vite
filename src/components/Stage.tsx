@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode, useState } from "react";
-import { TaskType, MyObject } from "../challenge_helper";
+import { ActionType, MyObject } from "../challenge_helper";
 
 type StageProps = {
   stageNum: number;
@@ -30,7 +30,7 @@ export default function Stage({
 
   let currStage = currStageStep.split(".")[0];
   let currStep = currStageStep.split(".")[1];
-  console.log(steps);
+
   return (
     <>
       <div className={"stage" + stageNum}>
@@ -45,7 +45,7 @@ export default function Stage({
           {steps.map((goalsInStep, idx) => {
             let goals: ReactElement[] = [];
             for (let goal of goalsInStep) {
-              let typedGoal: TaskType = goal.split(" ")[0] as TaskType;
+              let typedGoal: ActionType = goal.split(" ")[0] as ActionType;
 
               goals.push(
                 <div className="goal">
