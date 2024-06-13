@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./App.scss";
 import Stage from "./components/Stage";
-import bigOlObj from "./challenge_helper";
 import StepPicker from "./components/StepPicker";
 import FilterContainer from "./components/FilterContainer";
 
@@ -43,26 +42,10 @@ function App() {
           setShowWalkTasks={setShowWalkTasks}
         ></FilterContainer>
         <div className="stage-container">
-          <Stage
-            stageNum={1}
-            stageGoals={bigOlObj}
-            currStageStep={currStageStep}
-          ></Stage>
-          <Stage
-            stageNum={2}
-            stageGoals={bigOlObj}
-            currStageStep={currStageStep}
-          ></Stage>
-          <Stage
-            stageNum={3}
-            stageGoals={bigOlObj}
-            currStageStep={currStageStep}
-          ></Stage>
-          <Stage
-            stageNum={4}
-            stageGoals={bigOlObj}
-            currStageStep={currStageStep}
-          ></Stage>
+          <Stage stageNum={1} currStageStep={currStageStep}></Stage>
+          <Stage stageNum={2} currStageStep={currStageStep}></Stage>
+          <Stage stageNum={3} currStageStep={currStageStep}></Stage>
+          <Stage stageNum={4} currStageStep={currStageStep}></Stage>
         </div>
       </div>
     </>

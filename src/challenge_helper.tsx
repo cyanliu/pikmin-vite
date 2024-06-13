@@ -1,35 +1,40 @@
 export type FlowerColor = "Blue" | "Red" | "Yellow" | "White" | "Any";
-export type FlowerSpecies = "Carnation" | "Hydrangea" | "Any";
-
-export type TaskType = "Walk" | "Grow" | "Complete" | "Plant" | "Destroy";
+// flower species must be plural
+export type FlowerSpecies =
+  | "Calla Lilies"
+  | "Peonies"
+  | "Carnations"
+  | "Hydrangeas"
+  | "Any";
+export type ActionType = "Walk" | "Grow" | "Complete" | "Plant" | "Destroy";
 
 type BasicTask = {
   label: string;
+  quantity: number;
   action: "Walk" | "Grow" | "Complete" | "Destroy";
 };
 
 type FlowerTask = {
   label: string;
+  quantity: number;
   action: "Plant";
   flower: { color: FlowerColor; species: FlowerSpecies };
 };
 
-type Task = BasicTask | FlowerTask;
+export type Task = BasicTask | FlowerTask;
 
-let tasks: Task[] = [
-  { label: "Walk 1000 steps", action: "Walk" },
-  { label: "Grow 2 Pikmin", action: "Grow" },
-  { label: "Complete 2 Expeditions", action: "Complete" },
-  {
-    label: "Plant 1000 Flowers",
-    action: "Plant",
-    flower: { color: "Any", species: "Any" },
-  },
-  { label: "Destroy 2 Mushrooms", action: "Destroy" },
-];
-
-// while iterating through tasksList, I (think I) want each element
-// to be tied to a type? ...
+// let tasks: Task[] = [
+//   { label: "Walk 1000 steps", action: "Walk", quantity: 1000 },
+//   { label: "Grow 2 Pikmin", action: "Grow", quantity: 2 },
+//   { label: "Complete 2 Expeditions", action: "Complete", quantity: 2 },
+//   {
+//     label: "Plant 1000 Flowers",
+//     action: "Plant",
+//     flower: { color: "Any", species: "Any" },
+//     quantity: 1000,
+//   },
+//   { label: "Destroy 2 Mushrooms", action: "Destroy", quantity: 2 },
+// ];
 
 function getStylingClass(task: Task): string {
   const action = task.action;
@@ -47,6 +52,90 @@ function getStylingClass(task: Task): string {
   }
 }
 
+export function transformStringToTask(input: string): Task | null {
+  let action = input.split(" ")[0];
+
+  if (
+    action !== "Walk" &&
+    action !== "Grow" &&
+    action !== "Complete" &&
+    action !== "Destroy" &&
+    action !== "Plant"
+  ) {
+    return null;
+  }
+
+  let quantity = parseInt(input.split(" ")[1]);
+  // some shitty code but quantity will never be 0 i hope
+  if (!quantity) {
+    return null;
+  }
+
+  if (action === "Plant") {
+    let inputFlower = input.split(" ").slice(2).join(" ");
+
+    let flowerStruct: { color: FlowerColor; species: FlowerSpecies };
+
+    if (inputFlower === "Flowers") {
+      // eg. "Plant 1000 Flowers"
+      // there will never(??) be color !== any && species === any
+      flowerStruct = { color: "Any", species: "Any" };
+    } else {
+      // parse out color and species
+
+      // parsing color
+      // get first word of inputFlower
+      let inputColor = inputFlower.split(" ")[0];
+      let color: FlowerColor;
+      if (
+        inputColor !== "Blue" &&
+        inputColor !== "Red" &&
+        inputColor !== "Yellow" &&
+        inputColor !== "White"
+      ) {
+        // if the first word isn't a color, then it's any
+        color = "Any";
+      } else {
+        // if the first word is a color, then it..is a color..
+        color = inputColor;
+      }
+
+      // TODO: figure out how to make this more robust...
+      let inputSpecies;
+      let species: FlowerSpecies;
+      // this typing is a mess, might need to rework later :(
+      if (color === "Any") {
+        // if color isn't present in input, then the species is just inputFlower
+        species = inputFlower as FlowerSpecies;
+      } else {
+        // color is present, therefore the species is inputFlower w/o first word
+        species = inputFlower.split(" ").slice(1).join(" ") as FlowerSpecies;
+      }
+
+      if (
+        species !== "Calla Lilies" &&
+        species !== "Peonies" &&
+        species !== "Carnations" &&
+        species !== "Hydrangeas" &&
+        species !== "Any"
+      ) {
+        return null;
+      }
+
+      flowerStruct = { color: color, species: species };
+    }
+
+    return {
+      label: input,
+      action: action,
+      quantity: quantity,
+      flower: flowerStruct,
+    };
+  } else {
+    return { label: input, action: action, quantity: quantity };
+  }
+}
+
 var bigOlThing = [
   ["Walk 1000 steps"],
   ["Grow 2 Pikmin"],
@@ -55,44 +144,35 @@ var bigOlThing = [
   ["Walk 2000 Steps"],
   ["Plant 1500 Flowers", "Destroy 2 mushrooms"],
   ["Grow 3 Pikmin", "Destroy 3 Mushrooms"],
-  ["Plant 700 Peony", "Destroy 4 Mushrooms"],
+  ["Plant 700 Peonies", "Destroy 4 Mushrooms"],
   ["Complete 3 Expeditions"],
-  ["Plant 1000 Red Calla Lily", "Destroy 3 Mushrooms"],
-  ["Plant 1500 Yellow Calla Lily", "Destroy 4 Mushrooms"],
-  ["Plant 2000 White Calla Lily", "Plant 1500 Peony", "Destroy 5 Mushrooms"],
-  ["Grow 3 Pikmin", "Destroy 3 Mushrooms"],
-  ["Plant 2000 White Peony", "Walk 3000 Steps", "Destroy 3 Mushrooms"],
+  ["Plant 1000 Red Calla Lilies", "Destroy 3 Mushrooms"],
+  ["Plant 1500 Yellow Calla Lilies", "Destroy 4 Mushrooms"],
   [
-    "Plant 2000 Yellow Peony",
-    "Plant 1000 Blue Calla Lily",
+    "Plant 2000 White Calla Lilies",
+    "Plant 1500 Peonies",
+    "Destroy 5 Mushrooms",
+  ],
+  ["Grow 3 Pikmin", "Destroy 3 Mushrooms"],
+  ["Plant 2000 White Peonies", "Walk 3000 Steps", "Destroy 3 Mushrooms"],
+  [
+    "Plant 2000 Yellow Peonies",
+    "Plant 1000 Blue Calla Lilies",
     "Destroy 4 Mushrooms",
   ],
-  ["Plant 2000 Blue Peony", "Plant 2000 Calla Lily", "Destroy 5 Mushrooms"],
+  ["Plant 2000 Blue Peonies", "Plant 2000 Calla Lilies", "Destroy 5 Mushrooms"],
 ];
-export type MyObject = { [key: string]: string[] };
-var bigOlObj: MyObject = {};
-var stageIncrement = 1;
-var miniStep = 1;
 
-for (let i = 1; i <= bigOlThing.length; i++) {
-  let newKey = stageIncrement + "." + miniStep;
-  bigOlObj[newKey] = bigOlThing[i - 1];
+export let allTasks: Task[][] = [];
 
-  miniStep += 1;
-  if (i % 4 === 0) {
-    stageIncrement += 1;
-    miniStep = 1;
+for (let step = 0; step < bigOlThing.length; step++) {
+  let stepTaskList: Task[] = [];
+  for (let task = 0; task < bigOlThing[step].length; task++) {
+    let taskToParse = bigOlThing[step][task];
+    let parsed = transformStringToTask(taskToParse);
+    if (parsed !== null) {
+      stepTaskList.push(parsed);
+    }
   }
-}
-
-console.log(bigOlObj);
-export default bigOlObj;
-
-// formatted array of arrays?
-
-for (let s = 0; s < bigOlThing.length; s++) {
-  for (let g = 0; g < bigOlThing[s].length; g++) {
-    let goalType = "";
-    goalType = bigOlThing[s][g].split(" ")[0];
-  }
+  allTasks.push(stepTaskList);
 }

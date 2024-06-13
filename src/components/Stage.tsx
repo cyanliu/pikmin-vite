@@ -1,9 +1,8 @@
 import React, { ReactElement, ReactNode, useState } from "react";
-import { ActionType, MyObject } from "../challenge_helper";
+import { ActionType, Task, allTasks } from "../challenge_helper";
 
 type StageProps = {
   stageNum: number;
-  stageGoals: MyObject;
   currStageStep: string;
 };
 
@@ -15,17 +14,18 @@ var test: { [key: string]: string[] } = {
   "2.1": ["something else"],
 };
 
-export default function Stage({
-  stageNum,
-  stageGoals,
-  currStageStep,
-}: StageProps) {
+export default function Stage({ stageNum, currStageStep }: StageProps) {
   /* stages have 4 steps with n number of goals per step */
-  var steps: string[][] = [];
 
-  for (let c = 1; c <= 4; c++) {
-    let idx = stageNum + "." + c;
-    steps.push(stageGoals[idx]);
+  let initialStep = (stageNum - 1) * 4;
+  let finalStep = stageNum * 4 - 1;
+  let subsetTasks: Task[][] = [];
+  for (let step = initialStep; step <= finalStep; step++) {
+    let goalList: Task[] = [];
+    for (let goalIndex = 0; goalIndex < allTasks[step].length; goalIndex++) {
+      goalList.push(allTasks[step][goalIndex]);
+    }
+    subsetTasks.push(goalList);
   }
 
   let currStage = currStageStep.split(".")[0];
@@ -42,14 +42,14 @@ export default function Stage({
           <h2>Stage {stageNum}</h2>
         </div>
         <div className="steps-container">
-          {steps.map((goalsInStep, idx) => {
+          {subsetTasks.map((goalsInStep, idx) => {
             let goals: ReactElement[] = [];
             for (let goal of goalsInStep) {
-              let typedGoal: ActionType = goal.split(" ")[0] as ActionType;
+              let goalLabel: String = goal.label;
 
               goals.push(
                 <div className="goal">
-                  <span className="">{goal}</span>
+                  <span className="">{goalLabel}</span>
                 </div>
               );
             }
