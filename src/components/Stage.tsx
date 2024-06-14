@@ -18,7 +18,7 @@ export default function Stage({ stageNum, currStageStep }: StageProps) {
   /* stages have 4 steps with n number of goals per step */
 
   let initialStep = (stageNum - 1) * 4;
-  let finalStep = stageNum * 4 - 1;
+  let finalStep = initialStep + 3;
   let subsetTasks: Task[][] = [];
   for (let step = initialStep; step <= finalStep; step++) {
     let goalList: Task[] = [];
@@ -46,7 +46,12 @@ export default function Stage({ stageNum, currStageStep }: StageProps) {
             let goals: ReactElement[] = [];
             for (let goal of goalsInStep) {
               let goalLabel: String = goal.label;
-
+              let goalType: ActionType = goal.action;
+              if (goal.action === "Plant") {
+                if (goal.flower.color === "Any") {
+                  // the Any Flower™ tooltip!
+                }
+              }
               goals.push(
                 <div className="goal">
                   <span className="">{goalLabel}</span>
