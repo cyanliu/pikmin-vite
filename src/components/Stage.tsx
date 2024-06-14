@@ -1,17 +1,64 @@
 import React, { ReactElement, ReactNode, useState } from "react";
-import { ActionType, Task, allTasks } from "../challenge_helper";
+import { anyFlowerTasks, Task, allTasks } from "../challenge_helper";
+
+type TaskCellProps = {
+  label: string;
+  flowerTip?: string | null;
+  isCurrentStep: boolean;
+};
+
+function TaskCell({ label, flowerTip, isCurrentStep }: TaskCellProps) {
+  return (
+    <div className={"goal " + (isCurrentStep ? "selected" : "")}>
+      <span className="">{label}</span>
+      {flowerTip ? (
+        <div className="tooltip">
+          👀
+          <span className="tooltiptext">{flowerTip}</span>
+        </div>
+      ) : (
+        <></>
+      )}
+    </div>
+  );
+}
+
+type TaskSimple = { label: string; tooltipHint?: string | null };
+type TaskRowProps = {
+  tasksSimple: TaskSimple[];
+  isCurrentStep: boolean;
+};
+
+function TaskRow({ tasksSimple, isCurrentStep }: TaskRowProps) {
+  return (
+    <>
+      <div className={"step " + (isCurrentStep ? "selected" : "")}>
+        {tasksSimple.map((tSimple) => {
+          if (tSimple.tooltipHint) {
+            return (
+              <TaskCell
+                label={tSimple.label}
+                flowerTip={tSimple.tooltipHint}
+                isCurrentStep={isCurrentStep}
+              ></TaskCell>
+            );
+          } else {
+            return (
+              <TaskCell
+                label={tSimple.label}
+                isCurrentStep={isCurrentStep}
+              ></TaskCell>
+            );
+          }
+        })}
+      </div>
+    </>
+  );
+}
 
 type StageProps = {
   stageNum: number;
   currStageStep: string;
-};
-
-var test: { [key: string]: string[] } = {
-  "1.1": ["Walk 1000 steps"],
-  "1.2": ["Grow 2 Pikmin"],
-  "1.3": ["Complete 2 Expeditions"],
-  "1.4": ["Plant 1000 Flowers", "Destroy 2 mushrooms"],
-  "2.1": ["something else"],
 };
 
 export default function Stage({ stageNum, currStageStep }: StageProps) {
@@ -42,36 +89,34 @@ export default function Stage({ stageNum, currStageStep }: StageProps) {
           <h2>Stage {stageNum}</h2>
         </div>
         <div className="steps-container">
+          {/* map across all 4 steps within a stage */}
           {subsetTasks.map((goalsInStep, idx) => {
-            let goals: ReactElement[] = [];
-            for (let goal of goalsInStep) {
-              let goalLabel: String = goal.label;
-              let goalType: ActionType = goal.action;
-              if (goal.action === "Plant") {
-                if (goal.flower.color === "Any") {
-                  // the Any Flower™ tooltip!
-                }
+            let goals: TaskSimple[] = [];
+            // map across tasks within a given step
+            for (const goal of goalsInStep) {
+              console.log(goal.label);
+              const goalLabel: string = goal.label;
+              if (
+                goal.action === "Plant" &&
+                goal.flower.color === "Any" &&
+                goal.flower.species !== "Any"
+              ) {
+                goals.push({
+                  label: goalLabel,
+                  tooltipHint: anyFlowerTasks[goal.flower.species],
+                });
+              } else {
+                goals.push({ label: goalLabel, tooltipHint: null });
               }
-              goals.push(
-                <div className="goal">
-                  <span className="">{goalLabel}</span>
-                </div>
-              );
             }
+
+            let isCurrentStep =
+              currStage === String(stageNum) && currStep === String(idx + 1);
             return (
-              <>
-                <div
-                  className={
-                    "step " +
-                    (currStage === String(stageNum) &&
-                    currStep === String(idx + 1)
-                      ? "selected"
-                      : "")
-                  }
-                >
-                  {goals}
-                </div>
-              </>
+              <TaskRow
+                isCurrentStep={isCurrentStep}
+                tasksSimple={goals}
+              ></TaskRow>
             );
           })}
         </div>

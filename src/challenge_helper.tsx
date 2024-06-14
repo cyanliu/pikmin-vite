@@ -176,3 +176,11 @@ for (let step = 0; step < bigOlThing.length; step++) {
   }
   allTasks.push(stepTaskList);
 }
+
+// todo: analyze the input to make this more helpful
+export let anyFlowerTasks = {
+  Peonies: "Red",
+  "Calla Lilies": "none :(",
+  Carnations: "bloo",
+  Hydrangeas: "uh",
+};
