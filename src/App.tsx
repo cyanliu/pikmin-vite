@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "./App.scss";
 import Stage from "./components/Stage";
-import StepPicker from "./components/StepPicker";
-import FilterContainer from "./components/FilterContainer";
+import SettingsContainer from "./components/SettingsContainer";
 
 function App() {
   const [currStageStep, setcurrStageStep] = useState<string>("1.1");
@@ -27,9 +26,7 @@ function App() {
       </div>
 
       <div className="body">
-        <StepPicker setcurrStageStep={setcurrStageStep}></StepPicker>
-
-        <FilterContainer
+        <SettingsContainer
           showExpeditionTasks={showExpeditionTasks}
           showFlowerTasks={showFlowerTasks}
           showMushroomTasks={showMushroomTasks}
@@ -40,7 +37,8 @@ function App() {
           setShowMushroomTasks={setShowMushroomTasks}
           setShowPikminTasks={setShowPikminTasks}
           setShowWalkTasks={setShowWalkTasks}
-        ></FilterContainer>
+          setcurrStageStep={setcurrStageStep}
+        ></SettingsContainer>
         <div className="stage-container">
           <Stage stageNum={1} currStageStep={currStageStep}></Stage>
           <Stage stageNum={2} currStageStep={currStageStep}></Stage>
