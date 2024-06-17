@@ -40,10 +40,18 @@ function App() {
           setcurrStageStep={setcurrStageStep}
         ></SettingsContainer>
         <div className="stage-container">
-          <Stage stageNum={1} currStageStep={currStageStep}></Stage>
-          <Stage stageNum={2} currStageStep={currStageStep}></Stage>
-          <Stage stageNum={3} currStageStep={currStageStep}></Stage>
-          <Stage stageNum={4} currStageStep={currStageStep}></Stage>
+          {[1, 2, 3, 4].map((num) => {
+            return (
+              <>
+                <Stage
+                  stageNum={num}
+                  currStageStep={currStageStep}
+                  showWalkTasks={showWalkTasks}
+                  showExpeditionTasks={showExpeditionTasks}
+                ></Stage>
+              </>
+            );
+          })}
         </div>
       </div>
     </>

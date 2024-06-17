@@ -59,9 +59,16 @@ function TaskRow({ tasksSimple, isCurrentStep }: TaskRowProps) {
 type StageProps = {
   stageNum: number;
   currStageStep: string;
+  showWalkTasks: boolean;
+  showExpeditionTasks: boolean;
 };
 
-export default function Stage({ stageNum, currStageStep }: StageProps) {
+export default function Stage({
+  stageNum,
+  currStageStep,
+  showWalkTasks,
+  showExpeditionTasks,
+}: StageProps) {
   /* stages have 4 steps with n number of goals per step */
 
   let initialStep = (stageNum - 1) * 4;
@@ -96,6 +103,20 @@ export default function Stage({ stageNum, currStageStep }: StageProps) {
             for (const goal of goalsInStep) {
               console.log(goal.label);
               const goalLabel: string = goal.label;
+
+              if (!showWalkTasks && goal.action === "Walk") {
+                goals.push({
+                  label: "-",
+                });
+                continue;
+              }
+              if (!showExpeditionTasks && goal.action === "Complete") {
+                goals.push({
+                  label: "-",
+                });
+                continue;
+              }
+
               if (
                 goal.action === "Plant" &&
                 goal.flower.color === "Any" &&
