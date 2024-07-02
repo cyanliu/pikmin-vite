@@ -22,16 +22,26 @@ $box-shadow:
   gap: 1rem;
 }
 
-.inputs {
+.curr-step-container {
   display: flex;
   flex-direction: row;
   align-content: center;
   justify-content: center;
   margin-bottom: 0.5rem;
-  & #current-step {
+  gap: 1rem;
+  & #current-step,
+  & input {
     font-size: 1.25rem;
     padding: $padding;
-    border-radius: 4px;
+    border-radius: 1rem;
+    border: 1px solid #fff;
+    width: 4rem;
+    text-align: right;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 5px 10px -5px;
+  }
+  & label {
+    align-content: center;
+    margin-right: 0.5rem;
   }
 }
 

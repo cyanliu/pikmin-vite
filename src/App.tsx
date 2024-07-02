@@ -5,6 +5,7 @@ import SettingsContainer from "./components/SettingsContainer";
 
 function App() {
   const [currStageStep, setcurrStageStep] = useState<string>("1.1");
+  const [numTickets, setNumTickets] = useState<number>(0);
 
   const [showWalkTasks, setShowWalkTasks] = useState<boolean>(true);
   const [showPikminTasks, setShowPikminTasks] = useState<boolean>(true);
@@ -32,12 +33,14 @@ function App() {
           showMushroomTasks={showMushroomTasks}
           showPikminTasks={showPikminTasks}
           showWalkTasks={showWalkTasks}
+          numTickets={numTickets}
           setShowExpeditionTasks={setShowExpeditionTasks}
           setShowFlowerTasks={setShowFlowerTasks}
           setShowMushroomTasks={setShowMushroomTasks}
           setShowPikminTasks={setShowPikminTasks}
           setShowWalkTasks={setShowWalkTasks}
           setcurrStageStep={setcurrStageStep}
+          setNumTickets={setNumTickets}
         ></SettingsContainer>
         <div className="stage-container">
           {[1, 2, 3, 4].map((num) => {

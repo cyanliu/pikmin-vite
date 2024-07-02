@@ -6,12 +6,15 @@ type SettingsContainerProps = {
   showMushroomTasks: boolean;
   showPikminTasks: boolean;
   showWalkTasks: boolean;
+
+  numTickets: number;
   setShowExpeditionTasks: React.Dispatch<React.SetStateAction<boolean>>;
   setShowFlowerTasks: React.Dispatch<React.SetStateAction<boolean>>;
   setShowMushroomTasks: React.Dispatch<React.SetStateAction<boolean>>;
   setShowPikminTasks: React.Dispatch<React.SetStateAction<boolean>>;
   setShowWalkTasks: React.Dispatch<React.SetStateAction<boolean>>;
   setcurrStageStep: React.Dispatch<React.SetStateAction<string>>;
+  setNumTickets: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function SettingsContainer({
@@ -20,41 +23,58 @@ export default function SettingsContainer({
   showMushroomTasks,
   showPikminTasks,
   showWalkTasks,
+  numTickets,
   setShowExpeditionTasks,
   setShowFlowerTasks,
   setShowMushroomTasks,
   setShowPikminTasks,
   setShowWalkTasks,
   setcurrStageStep,
+  setNumTickets,
 }: SettingsContainerProps) {
   return (
     <>
       <div className="settings-container">
-        <div className="inputs">
-          <select
-            id="current-step"
-            onChange={(event) => {
-              let stepGoal = event.currentTarget.value;
-              setcurrStageStep(stepGoal);
-            }}
-          >
-            <option value={"1.1"}>1.1</option>
-            <option value={"1.2"}>1.2</option>
-            <option value={"1.3"}>1.3</option>
-            <option value={"1.4"}>1.4</option>
-            <option value={"2.1"}>2.1</option>
-            <option value={"2.2"}>2.2</option>
-            <option value={"2.3"}>2.3</option>
-            <option value={"2.4"}>2.4</option>
-            <option value={"3.1"}>3.1</option>
-            <option value={"3.2"}>3.2</option>
-            <option value={"3.3"}>3.3</option>
-            <option value={"3.4"}>3.4</option>
-            <option value={"4.1"}>4.1</option>
-            <option value={"4.2"}>4.2</option>
-            <option value={"4.3"}>4.3</option>
-            <option value={"4.4"}>4.4</option>
-          </select>
+        <div className="curr-step-container">
+          <div>
+            <label htmlFor="current-step">Current Step:</label>
+            <select
+              id="current-step"
+              onChange={(event) => {
+                let stepGoal = event.currentTarget.value;
+                setcurrStageStep(stepGoal);
+              }}
+            >
+              <option value={"1.1"}>1.1</option>
+              <option value={"1.2"}>1.2</option>
+              <option value={"1.3"}>1.3</option>
+              <option value={"1.4"}>1.4</option>
+              <option value={"2.1"}>2.1</option>
+              <option value={"2.2"}>2.2</option>
+              <option value={"2.3"}>2.3</option>
+              <option value={"2.4"}>2.4</option>
+              <option value={"3.1"}>3.1</option>
+              <option value={"3.2"}>3.2</option>
+              <option value={"3.3"}>3.3</option>
+              <option value={"3.4"}>3.4</option>
+              <option value={"4.1"}>4.1</option>
+              <option value={"4.2"}>4.2</option>
+              <option value={"4.3"}>4.3</option>
+              <option value={"4.4"}>4.4</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="tickets-input">Extra tickets:</label>
+
+            <input
+              type="number"
+              id="tickets-input"
+              onChange={(event) => {
+                setNumTickets(parseInt(event.target.value));
+              }}
+              value={numTickets}
+            ></input>
+          </div>
         </div>
         <div className="filters-container">
           <div className="filters">
