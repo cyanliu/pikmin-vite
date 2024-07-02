@@ -5,6 +5,8 @@ export type FlowerSpecies =
   | "Peonies"
   | "Carnations"
   | "Hydrangeas"
+  | "Frangipanis"
+  | "Water Lilies"
   | "Any";
 export type ActionType = "Walk" | "Grow" | "Complete" | "Plant" | "Destroy";
 
@@ -22,35 +24,6 @@ type FlowerTask = {
 };
 
 export type Task = BasicTask | FlowerTask;
-
-// let tasks: Task[] = [
-//   { label: "Walk 1000 steps", action: "Walk", quantity: 1000 },
-//   { label: "Grow 2 Pikmin", action: "Grow", quantity: 2 },
-//   { label: "Complete 2 Expeditions", action: "Complete", quantity: 2 },
-//   {
-//     label: "Plant 1000 Flowers",
-//     action: "Plant",
-//     flower: { color: "Any", species: "Any" },
-//     quantity: 1000,
-//   },
-//   { label: "Destroy 2 Mushrooms", action: "Destroy", quantity: 2 },
-// ];
-
-function getStylingClass(task: Task): string {
-  const action = task.action;
-  switch (action) {
-    case "Walk":
-      return "steps";
-    case "Grow":
-      return "pikmin";
-    case "Complete":
-      return "expedition";
-    case "Plant":
-      return "flower";
-    case "Destroy":
-      return "mushroom";
-  }
-}
 
 export function transformStringToTask(input: string): Task | null {
   let action = input.split(" ")[0];
@@ -101,7 +74,6 @@ export function transformStringToTask(input: string): Task | null {
       }
 
       // TODO: figure out how to make this more robust...
-      let inputSpecies;
       let species: FlowerSpecies;
       // this typing is a mess, might need to rework later :(
       if (color === "Any") {
@@ -117,6 +89,8 @@ export function transformStringToTask(input: string): Task | null {
         species !== "Peonies" &&
         species !== "Carnations" &&
         species !== "Hydrangeas" &&
+        species !== "Frangipanis" &&
+        species !== "Water Lilies" &&
         species !== "Any"
       ) {
         return null;
@@ -136,7 +110,7 @@ export function transformStringToTask(input: string): Task | null {
   }
 }
 
-var bigOlThing = [
+var juneTasks = [
   ["Walk 1000 steps"],
   ["Grow 2 Pikmin"],
   ["Complete 2 Expeditions"],
@@ -144,6 +118,7 @@ var bigOlThing = [
   ["Walk 2000 Steps"],
   ["Plant 1500 Flowers", "Destroy 2 mushrooms"],
   ["Grow 3 Pikmin", "Destroy 3 Mushrooms"],
+  // ^ these first 7 were the same between june and july?
   ["Plant 700 Peonies", "Destroy 4 Mushrooms"],
   ["Complete 3 Expeditions"],
   ["Plant 1000 Red Calla Lilies", "Destroy 3 Mushrooms"],
@@ -163,12 +138,44 @@ var bigOlThing = [
   ["Plant 2000 Blue Peonies", "Plant 2000 Calla Lilies", "Destroy 5 Mushrooms"],
 ];
 
+var julyTasks = [
+  ["Walk 1000 steps"],
+  ["Grow 2 Pikmin"],
+  ["Complete 2 Expeditions"],
+  ["Plant 1000 Flowers", "Destroy 2 mushrooms"],
+  ["Walk 2000 Steps"],
+  ["Plant 1500 Flowers", "Destroy 2 mushrooms"],
+  ["Grow 3 Pikmin", "Destroy 3 Mushrooms"],
+  // ^ these first 7 were the same between june and july?
+  ["Plant 700 Water Lilies", "Destroy 4 Mushrooms"],
+  ["Complete 3 Expeditions"],
+  ["Plant 1500 Red Frangipanis", "Destroy 3 Mushrooms"],
+  ["Plant 1500 Yellow Frangipanis", "Destroy 4 Mushrooms"],
+  [
+    "Plant 2000 White Frangipanis",
+    "Plant 1500 Water Lilies",
+    "Destroy 5 Mushrooms",
+  ],
+  ["Grow 3 Pikmin", "Destroy 3 Mushrooms"],
+  ["Plant 2000 White Water Lilies", "Walk 3000 Steps", "Destroy 3 Mushrooms"],
+  [
+    "Plant 2000 Red Water Lilies",
+    "Plant 1000 Yellow Water Lilies",
+    "Destroy 4 Mushrooms",
+  ],
+  [
+    "Plant 1000 Blue Water Lilies",
+    "Plant 2500 Frangipanis",
+    "Destroy 5 Mushrooms",
+  ],
+];
+
 export let allTasks: Task[][] = [];
 
-for (let step = 0; step < bigOlThing.length; step++) {
+for (let step = 0; step < julyTasks.length; step++) {
   let stepTaskList: Task[] = [];
-  for (let task = 0; task < bigOlThing[step].length; task++) {
-    let taskToParse = bigOlThing[step][task];
+  for (let task = 0; task < julyTasks[step].length; task++) {
+    let taskToParse = julyTasks[step][task];
     let parsed = transformStringToTask(taskToParse);
     if (parsed !== null) {
       stepTaskList.push(parsed);
@@ -183,4 +190,6 @@ export let anyFlowerTasks = {
   "Calla Lilies": "none :(",
   Carnations: "bloo",
   Hydrangeas: "uh",
+  "Water Lilies": "none :(",
+  Frangipanis: "none :(",
 };
