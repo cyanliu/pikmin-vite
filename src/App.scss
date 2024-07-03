@@ -3,9 +3,14 @@ $box-shadow:
   rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
   rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 
+$stage-box-shadow: rgba(50, 50, 93, 0.25) 3px 3px 5px 2px;
+
+$window-margins: 4rem;
+
 #root {
-  padding: 0 2rem;
+  padding: 0 $window-margins;
 }
+
 .App {
   text-align: center;
 }
@@ -20,6 +25,26 @@ $box-shadow:
   justify-content: center;
   font-size: 0.8rem;
   gap: 1rem;
+}
+
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  padding: $padding;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: #e8e4ff;
+  box-shadow: $box-shadow;
+  & .filters-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    & .filters {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
 }
 
 .curr-step-container {
@@ -45,31 +70,23 @@ $box-shadow:
   }
 }
 
-.settings-container {
-  display: flex;
-  flex-direction: column;
-  padding: $padding;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  background-color: #e8e4ff;
-  box-shadow: $box-shadow;
-  & .filters-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    & .filters {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
-  }
-}
-
+$stage-w: 4rem;
 .stage-container {
   display: flex;
   flex-direction: column;
   align-content: start;
-  gap: 0.5rem;
+  gap: $stage-w * 0.6;
+  position: relative;
+}
+
+.floaty {
+  background-color: rgba(248, 211, 232, 0.8);
+  position: absolute;
+  height: calc(100% - $window-margins);
+  width: calc(100vw - $window-margins);
+  left: calc($window-margins / 2 * -1);
+  top: calc($window-margins / 2);
+  z-index: -1;
 }
 
 .stage1,
@@ -78,31 +95,81 @@ $box-shadow:
 .stage4 {
   display: flex;
   flex-direction: row;
-  box-shadow: $box-shadow;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  border: 1px solid white;
+  box-shadow: $stage-box-shadow;
+  border: 3px solid white;
+}
+
+@mixin stage-name-arrow($color) {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: calc(-1 * ($stage-w / 2 + $padding));
+  border-width: calc($stage-w / 2) calc($stage-w / 2 + $padding);
+  border-style: solid;
+  border-color: $color transparent transparent transparent;
+}
+
+@mixin stage-name-arrow-border {
+  content: "";
+  position: absolute;
+  top: calc(100% + 3px); /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: calc(-1 * ($stage-w / 2 + $padding) - 2.12px);
+  border-width: calc($stage-w / 2 + 2px) calc(($stage-w / 2 + $padding) + 2px);
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+  filter: drop-shadow(2px 3px 3px rgba(50, 50, 93, 0.25));
 }
 
 .stage-name {
   background-color: hsla(210, 100%, 50%, 0.125);
   align-content: center;
-  padding: $padding;
+  padding: $padding $padding 0;
+  width: $stage-w;
   text-align: center;
+  color: white;
+  font-weight: normal;
+  position: relative;
   h2 {
     font-size: 1.25rem;
   }
   .stage1 & {
     background-color: rgb(239, 139, 135);
+    &::after {
+      @include stage-name-arrow(rgb(239, 139, 135));
+    }
+    &::before {
+      @include stage-name-arrow-border();
+    }
   }
   .stage2 & {
     background-color: rgb(238, 122, 147);
+    &::after {
+      @include stage-name-arrow(rgb(238, 122, 147));
+    }
+    &::before {
+      @include stage-name-arrow-border();
+    }
   }
+
   .stage3 & {
     background-color: rgb(231, 103, 155);
+    &::after {
+      @include stage-name-arrow(rgb(231, 103, 155));
+    }
+    &::before {
+      @include stage-name-arrow-border();
+    }
   }
   .stage4 & {
     background-color: rgb(232, 89, 168);
+    &::after {
+      @include stage-name-arrow(rgb(232, 89, 168));
+    }
+    &::before {
+      @include stage-name-arrow-border();
+    }
   }
 }
 
@@ -178,4 +245,18 @@ $box-shadow:
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+@media (max-width: 690px) {
+  // scoot in the margins around the window on smaller widths
+  #root {
+    padding: 0 $window-margins / 4;
+  }
+
+  .floaty {
+    height: calc(100% - $window-margins / 4);
+    width: calc(100vw - $window-margins / 4);
+    left: calc($window-margins / 8 * -1);
+    top: calc($window-margins / 8);
+  }
 }

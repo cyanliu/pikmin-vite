@@ -55,6 +55,7 @@ function App() {
               </>
             );
           })}
+          <div className="floaty"></div>
         </div>
       </div>
     </>
