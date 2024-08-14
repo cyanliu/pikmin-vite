@@ -1,5 +1,6 @@
 export type FlowerColor = "Blue" | "Red" | "Yellow" | "White" | "Any";
 // flower species must be plural
+// TODO: monthly
 export type FlowerSpecies =
   | "Calla Lilies"
   | "Peonies"
@@ -7,6 +8,8 @@ export type FlowerSpecies =
   | "Hydrangeas"
   | "Frangipanis"
   | "Water Lilies"
+  | "Morning Glories"
+  | "Hibiscuses"
   | "Any";
 export type ActionType = "Walk" | "Grow" | "Complete" | "Plant" | "Destroy";
 
@@ -84,6 +87,7 @@ export function transformStringToTask(input: string): Task | null {
         species = inputFlower.split(" ").slice(1).join(" ") as FlowerSpecies;
       }
 
+      // TODO: monthly
       if (
         species !== "Calla Lilies" &&
         species !== "Peonies" &&
@@ -91,6 +95,8 @@ export function transformStringToTask(input: string): Task | null {
         species !== "Hydrangeas" &&
         species !== "Frangipanis" &&
         species !== "Water Lilies" &&
+        species !== "Morning Glories" &&
+        species !== "Hibiscuses" &&
         species !== "Any"
       ) {
         return null;
@@ -170,12 +176,47 @@ var julyTasks = [
   ],
 ];
 
+var augustTasks = [
+  ["Walk 1000 steps"],
+  ["Grow 2 Pikmin"],
+  ["Complete 2 Expeditions"],
+  ["Plant 1000 Flowers", "Destroy 2 mushrooms"],
+  ["Walk 2000 Steps"],
+  ["Plant 1500 Flowers", "Destroy 2 mushrooms"],
+  ["Grow 3 Pikmin", "Destroy 3 Mushrooms"],
+  // ^ these first 7 were the same between june and july and aug?
+  ["Plant 700 Morning Glories", "Destroy 4 Mushrooms"],
+  ["Complete 3 Expeditions"],
+  ["Plant 1500 Red Hibiscuses", "Destroy 3 Mushrooms"],
+  ["Plant 2000 Yellow Hibiscuses", "Destroy 4 Mushrooms"],
+  [
+    "Plant 2000 White Hibiscuses",
+    "Plant 1500 Morning Glories",
+    "Destroy 5 Mushrooms",
+  ],
+  ["Grow 3 Pikmin", "Destroy 3 Mushrooms"],
+  ["Plant 1800 Red Morning Glories", "Destroy 3 Mushrooms"],
+  [
+    "Plant 1500 White Morning Glories",
+    "Plant 2000 Blue Morning Glories",
+    "Destroy 4 Mushrooms",
+  ],
+  [
+    "Plant 1500 Yellow Morning Glories",
+    "Plant 2000 Hibiscuses",
+    "Destroy 5 Mushrooms",
+  ],
+];
+
 export let allTasks: Task[][] = [];
 
-for (let step = 0; step < julyTasks.length; step++) {
+// TODO: monthly
+const currTasks = augustTasks;
+
+for (let step = 0; step < currTasks.length; step++) {
   let stepTaskList: Task[] = [];
-  for (let task = 0; task < julyTasks[step].length; task++) {
-    let taskToParse = julyTasks[step][task];
+  for (let task = 0; task < currTasks[step].length; task++) {
+    let taskToParse = currTasks[step][task];
     let parsed = transformStringToTask(taskToParse);
     if (parsed !== null) {
       stepTaskList.push(parsed);
@@ -184,7 +225,12 @@ for (let step = 0; step < julyTasks.length; step++) {
   allTasks.push(stepTaskList);
 }
 
-// todo: analyze the input to make this more helpful
+// todo: analyze the input to make this more helpful.
+// thoughts:
+//   should the recommended flower be:
+//     if unused color, use that. else: use furthest out color?
+//         furthest out = account for days? (mush total / 3)
+// TODO: monthly
 export let anyFlowerTasks = {
   Peonies: "Red",
   "Calla Lilies": "none :(",
@@ -192,4 +238,6 @@ export let anyFlowerTasks = {
   Hydrangeas: "uh",
   "Water Lilies": "none :(",
   Frangipanis: "none :(",
+  "Morning Glories": "yello?",
+  Hibiscuses: "none :(",
 };

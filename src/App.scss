@@ -122,6 +122,11 @@ $stage-w: 4rem;
   filter: drop-shadow(2px 3px 3px rgba(50, 50, 93, 0.25));
 }
 
+// TODO: monthly
+$st1color: rgb(145, 191, 249);
+$st2color: rgb(123, 202, 250);
+$st3color: rgb(125, 214, 240);
+$st4color: rgb(103, 205, 228);
 .stage-name {
   background-color: hsla(210, 100%, 50%, 0.125);
   align-content: center;
@@ -135,18 +140,18 @@ $stage-w: 4rem;
     font-size: 1.25rem;
   }
   .stage1 & {
-    background-color: rgb(239, 139, 135);
+    background-color: $st1color;
     &::after {
-      @include stage-name-arrow(rgb(239, 139, 135));
+      @include stage-name-arrow($st1color);
     }
     &::before {
       @include stage-name-arrow-border();
     }
   }
   .stage2 & {
-    background-color: rgb(238, 122, 147);
+    background-color: $st2color;
     &::after {
-      @include stage-name-arrow(rgb(238, 122, 147));
+      @include stage-name-arrow($st2color);
     }
     &::before {
       @include stage-name-arrow-border();
@@ -154,18 +159,18 @@ $stage-w: 4rem;
   }
 
   .stage3 & {
-    background-color: rgb(231, 103, 155);
+    background-color: $st3color;
     &::after {
-      @include stage-name-arrow(rgb(231, 103, 155));
+      @include stage-name-arrow($st3color);
     }
     &::before {
       @include stage-name-arrow-border();
     }
   }
   .stage4 & {
-    background-color: rgb(232, 89, 168);
+    background-color: $st4color;
     &::after {
-      @include stage-name-arrow(rgb(232, 89, 168));
+      @include stage-name-arrow($st4color);
     }
     &::before {
       @include stage-name-arrow-border();
