@@ -75,17 +75,18 @@ export default function Stage({
   showPikminTasks,
   showWalkTasks,
 }: StageProps) {
-  /* stages have 4 steps with n number of goals per step */
+  /* 4 stages, 4 steps per stage, 1-3 tasks per step */
 
   let initialStep = (stageNum - 1) * 4;
   let finalStep = initialStep + 3;
+  //
   let subsetTasks: Task[][] = [];
   for (let step = initialStep; step <= finalStep; step++) {
-    let goalList: Task[] = [];
+    let taskList: Task[] = [];
     for (let goalIndex = 0; goalIndex < allTasks[step].length; goalIndex++) {
-      goalList.push(allTasks[step][goalIndex]);
+      taskList.push(allTasks[step][goalIndex]);
     }
-    subsetTasks.push(goalList);
+    subsetTasks.push(taskList);
   }
 
   let currStage = currStageStep.split(".")[0];
@@ -103,44 +104,44 @@ export default function Stage({
         </div>
         <div className="steps-container">
           {/* map across all 4 steps within a stage */}
-          {subsetTasks.map((goalsInStep, idx) => {
-            let goals: TaskSimple[] = [];
+          {subsetTasks.map((tasksInStep, idx) => {
+            let tasks: TaskSimple[] = [];
             // map across tasks within a given step
-            for (const goal of goalsInStep) {
-              console.log(goal.label);
-              const goalLabel: string = goal.label;
+            for (const task of tasksInStep) {
+              console.log(task.label);
+              const taskLabel: string = task.label;
 
               // Hiding tasks based on filters chosen in header
-              if (!showExpeditionTasks && goal.action === "Complete") {
-                goals.push({
+              if (!showExpeditionTasks && task.action === "Complete") {
+                tasks.push({
                   label: "-",
                 });
                 continue;
               }
 
-              if (!showFlowerTasks && goal.action === "Plant") {
-                goals.push({
+              if (!showFlowerTasks && task.action === "Plant") {
+                tasks.push({
                   label: "-",
                 });
                 continue;
               }
 
-              if (!showMushroomTasks && goal.action === "Destroy") {
-                goals.push({
+              if (!showMushroomTasks && task.action === "Destroy") {
+                tasks.push({
                   label: "-",
                 });
                 continue;
               }
 
-              if (!showPikminTasks && goal.action === "Grow") {
-                goals.push({
+              if (!showPikminTasks && task.action === "Grow") {
+                tasks.push({
                   label: "-",
                 });
                 continue;
               }
 
-              if (!showWalkTasks && goal.action === "Walk") {
-                goals.push({
+              if (!showWalkTasks && task.action === "Walk") {
+                tasks.push({
                   label: "-",
                 });
                 continue;
@@ -148,16 +149,16 @@ export default function Stage({
 
               // Render suggested color for plant "any" flowers
               if (
-                goal.action === "Plant" &&
-                goal.flower.color === "Any" &&
-                goal.flower.species !== "Any"
+                task.action === "Plant" &&
+                task.flower.color === "Any" &&
+                task.flower.species !== "Any"
               ) {
-                goals.push({
-                  label: goalLabel,
-                  tooltipHint: anyFlowerTasks[goal.flower.species],
+                tasks.push({
+                  label: taskLabel,
+                  tooltipHint: anyFlowerTasks[task.flower.species],
                 });
               } else {
-                goals.push({ label: goalLabel, tooltipHint: null });
+                tasks.push({ label: taskLabel, tooltipHint: null });
               }
             }
 
@@ -166,7 +167,7 @@ export default function Stage({
             return (
               <TaskRow
                 isCurrentStep={isCurrentStep}
-                tasksSimple={goals}
+                tasksSimple={tasks}
               ></TaskRow>
             );
           })}
