@@ -80,18 +80,6 @@ export default function SettingsContainer({
           <div className="filters">
             <input
               type="checkbox"
-              id="pikmin-task"
-              name="pikmin"
-              checked={showPikminTasks}
-              onChange={() => {
-                setShowPikminTasks(!showPikminTasks);
-              }}
-            />
-            <label htmlFor="pikmin-task">Pikmin</label>
-          </div>
-          <div className="filters">
-            <input
-              type="checkbox"
               id="expedition-task"
               name="expedition"
               checked={showExpeditionTasks}
@@ -100,18 +88,6 @@ export default function SettingsContainer({
               }}
             />
             <label htmlFor="expedition-task">Expedition</label>
-          </div>
-          <div className="filters">
-            <input
-              type="checkbox"
-              id="walk-task"
-              name="walk"
-              checked={showWalkTasks}
-              onChange={() => {
-                setShowWalkTasks(!showWalkTasks);
-              }}
-            />
-            <label htmlFor="walk-task">Walk</label>
           </div>
           <div className="filters">
             <input
@@ -136,6 +112,30 @@ export default function SettingsContainer({
               }}
             />
             <label htmlFor="mushroom-task">Mushroom</label>
+          </div>
+          <div className="filters">
+            <input
+              type="checkbox"
+              id="pikmin-task"
+              name="pikmin"
+              checked={showPikminTasks}
+              onChange={() => {
+                setShowPikminTasks(!showPikminTasks);
+              }}
+            />
+            <label htmlFor="pikmin-task">Pikmin</label>
+          </div>
+          <div className="filters">
+            <input
+              type="checkbox"
+              id="walk-task"
+              name="walk"
+              checked={showWalkTasks}
+              onChange={() => {
+                setShowWalkTasks(!showWalkTasks);
+              }}
+            />
+            <label htmlFor="walk-task">Walk</label>
           </div>
         </div>
       </div>
