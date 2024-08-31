@@ -32,9 +32,32 @@ $window-margins: 4rem;
   flex-direction: column;
   padding: $padding;
   border-radius: 0.5rem;
-  overflow: hidden;
   background-color: #e8e4ff;
   box-shadow: $box-shadow;
+
+  & .curr-step-container {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    gap: 1rem;
+    & #current-step,
+    & input {
+      font-size: 1.25rem;
+      padding: $padding;
+      border-radius: 1rem;
+      border: 1px solid #fff;
+      width: 4rem;
+      text-align: right;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 5px 10px -5px;
+    }
+    & label {
+      align-content: center;
+      margin-right: 0.5rem;
+    }
+  }
+
   & .filters-container {
     display: flex;
     flex-direction: row;
@@ -44,29 +67,6 @@ $window-margins: 4rem;
       flex-direction: row;
       align-items: center;
     }
-  }
-}
-
-.curr-step-container {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: center;
-  margin-bottom: 0.5rem;
-  gap: 1rem;
-  & #current-step,
-  & input {
-    font-size: 1.25rem;
-    padding: $padding;
-    border-radius: 1rem;
-    border: 1px solid #fff;
-    width: 4rem;
-    text-align: right;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 5px 10px -5px;
-  }
-  & label {
-    align-content: center;
-    margin-right: 0.5rem;
   }
 }
 

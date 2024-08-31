@@ -42,6 +42,9 @@ function App() {
           setcurrStageStep={setcurrStageStep}
           setNumTickets={setNumTickets}
         ></SettingsContainer>
+        <div className="totals-container">
+          <h1>teehee</h1>
+        </div>
         <div className="stage-container">
           {[1, 2, 3, 4].map((num) => {
             return (
