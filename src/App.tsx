@@ -18,6 +18,7 @@ function App() {
   //    that as an on-hover tooltip
   // 2. filter out task types?
 
+  let totalDays = 123;
   return (
     <>
       <div className="App">
@@ -43,7 +44,9 @@ function App() {
           setNumTickets={setNumTickets}
         ></SettingsContainer>
         <div className="totals-container">
-          <h1>teehee</h1>
+          <div className="totals-row">
+            <span>Total days required: {totalDays}</span>
+          </div>
         </div>
         <div className="stage-container">
           {[1, 2, 3, 4].map((num) => {

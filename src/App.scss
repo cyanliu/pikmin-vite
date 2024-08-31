@@ -70,6 +70,17 @@ $window-margins: 4rem;
   }
 }
 
+.totals-container {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  padding: $padding;
+  border-radius: 0.5rem;
+  background-color: #e8e4ff;
+  box-shadow: $box-shadow;
+}
+
 $stage-w: 4rem;
 .stage-container {
   display: flex;
