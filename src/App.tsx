@@ -49,8 +49,11 @@ function App() {
                 <Stage
                   stageNum={num}
                   currStageStep={currStageStep}
-                  showWalkTasks={showWalkTasks}
                   showExpeditionTasks={showExpeditionTasks}
+                  showFlowerTasks={showFlowerTasks}
+                  showMushroomTasks={showMushroomTasks}
+                  showPikminTasks={showPikminTasks}
+                  showWalkTasks={showWalkTasks}
                 ></Stage>
               </>
             );

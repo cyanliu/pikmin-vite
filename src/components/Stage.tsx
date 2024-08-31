@@ -59,15 +59,21 @@ function TaskRow({ tasksSimple, isCurrentStep }: TaskRowProps) {
 type StageProps = {
   stageNum: number;
   currStageStep: string;
-  showWalkTasks: boolean;
   showExpeditionTasks: boolean;
+  showFlowerTasks: boolean;
+  showMushroomTasks: boolean;
+  showPikminTasks: boolean;
+  showWalkTasks: boolean;
 };
 
 export default function Stage({
   stageNum,
   currStageStep,
-  showWalkTasks,
   showExpeditionTasks,
+  showFlowerTasks,
+  showMushroomTasks,
+  showPikminTasks,
+  showWalkTasks,
 }: StageProps) {
   /* stages have 4 steps with n number of goals per step */
 
@@ -104,12 +110,7 @@ export default function Stage({
               console.log(goal.label);
               const goalLabel: string = goal.label;
 
-              if (!showWalkTasks && goal.action === "Walk") {
-                goals.push({
-                  label: "-",
-                });
-                continue;
-              }
+              // Hiding tasks based on filters chosen in header
               if (!showExpeditionTasks && goal.action === "Complete") {
                 goals.push({
                   label: "-",
@@ -117,6 +118,35 @@ export default function Stage({
                 continue;
               }
 
+              if (!showFlowerTasks && goal.action === "Plant") {
+                goals.push({
+                  label: "-",
+                });
+                continue;
+              }
+
+              if (!showMushroomTasks && goal.action === "Destroy") {
+                goals.push({
+                  label: "-",
+                });
+                continue;
+              }
+
+              if (!showPikminTasks && goal.action === "Grow") {
+                goals.push({
+                  label: "-",
+                });
+                continue;
+              }
+
+              if (!showWalkTasks && goal.action === "Walk") {
+                goals.push({
+                  label: "-",
+                });
+                continue;
+              }
+
+              // Render suggested color for plant "any" flowers
               if (
                 goal.action === "Plant" &&
                 goal.flower.color === "Any" &&
