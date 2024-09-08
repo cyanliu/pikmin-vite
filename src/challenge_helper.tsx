@@ -10,6 +10,8 @@ export type FlowerSpecies =
   | "Water Lilies"
   | "Morning Glories"
   | "Hibiscuses"
+  | "Bougainvilleas"
+  | "Dianthuses"
   | "Any";
 export type ActionType = "Walk" | "Grow" | "Complete" | "Plant" | "Destroy";
 
@@ -97,6 +99,8 @@ export function transformStringToTask(input: string): Task | null {
         species !== "Water Lilies" &&
         species !== "Morning Glories" &&
         species !== "Hibiscuses" &&
+        species !== "Bougainvilleas" &&
+        species !== "Dianthuses" &&
         species !== "Any"
       ) {
         return null;
@@ -208,10 +212,42 @@ var augustTasks = [
   ],
 ];
 
+var septTasks = [
+  ["Walk 1000 steps"],
+  ["Grow 2 Pikmin"],
+  ["Complete 2 Expeditions"],
+  ["Plant 1000 Flowers", "Destroy 2 mushrooms"],
+  ["Walk 2000 Steps"],
+  ["Plant 1500 Flowers", "Destroy 2 mushrooms"],
+  ["Grow 3 Pikmin", "Destroy 3 Mushrooms"],
+  // ^ these first 7 were the same between june and july and aug?
+  ["Plant 700 Bougainvilleas", "Destroy 4 Mushrooms"],
+  ["Complete 3 Expeditions"],
+  ["Plant 2000 Red Dianthuses", "Destroy 3 Mushrooms"],
+  ["Plant 1000 Blue Dianthuses", "Destroy 4 Mushrooms"],
+  [
+    "Plant 1500 White Dianthuses",
+    "Plant 1500 Bougainvilleas",
+    "Destroy 5 Mushrooms",
+  ],
+  ["Grow 3 Pikmin", "Destroy 3 Mushrooms"],
+  ["Plant 2000 White Bougainvilleas", "Destroy 3 Mushrooms"],
+  [
+    "Plant 1500 Yellow Bougainvilleas",
+    "Plant 2000 Red Bougainvilleas",
+    "Destroy 4 Mushrooms",
+  ],
+  [
+    "Plant 1500 Blue Bougainvilleas",
+    "Plant 2000 Dianthuses",
+    "Destroy 5 Mushrooms",
+  ],
+];
+
 export let allTasks: Task[][] = [];
 
 // TODO: monthly
-const currTasks = augustTasks;
+const currTasks = septTasks;
 
 for (let step = 0; step < currTasks.length; step++) {
   let stepTaskList: Task[] = [];
@@ -240,4 +276,6 @@ export let anyFlowerTasks = {
   Frangipanis: "none :(",
   "Morning Glories": "yello?",
   Hibiscuses: "none :(",
+  Bougainvilleas: "??",
+  Dianthuses: "??",
 };
