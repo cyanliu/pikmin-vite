@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.scss";
 import Stage from "./components/Stage";
 import SettingsContainer from "./components/SettingsContainer";
+import { totalMushies } from "./challenge_helper";
 
 function App() {
   const [currStageStep, setcurrStageStep] = useState<string>("1.1");
@@ -18,7 +19,7 @@ function App() {
   //    that as an on-hover tooltip
   // 2. filter out task types?
 
-  let totalDays = 123;
+  let totalDays = Math.floor((totalMushies - numTickets) / 3);
   return (
     <>
       <div className="App">
@@ -45,6 +46,7 @@ function App() {
         ></SettingsContainer>
         <div className="totals-container">
           <div className="totals-row">
+            <span>Total mushies left: {totalMushies}</span>
             <span>Total days required: {totalDays}</span>
           </div>
         </div>

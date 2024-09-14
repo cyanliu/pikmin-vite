@@ -279,3 +279,12 @@ export let anyFlowerTasks = {
   Bougainvilleas: "??",
   Dianthuses: "??",
 };
+
+export let totalMushies = 0;
+for (let taskList of allTasks) {
+  for (let task of taskList) {
+    if (task.action === "Destroy") {
+      totalMushies += task.quantity;
+    }
+  }
+}

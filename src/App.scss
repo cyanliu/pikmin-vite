@@ -79,6 +79,11 @@ $window-margins: 4rem;
   border-radius: 0.5rem;
   background-color: #e8e4ff;
   box-shadow: $box-shadow;
+  & .totals-row {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+  }
 }
 
 $stage-w: 4rem;

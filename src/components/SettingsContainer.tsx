@@ -72,6 +72,7 @@ export default function SettingsContainer({
                 setNumTickets(parseInt(event.target.value));
               }}
               value={numTickets}
+              min={0}
             ></input>
           </div>
         </div>
