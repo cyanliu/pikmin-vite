@@ -65,7 +65,6 @@ export default function SettingsContainer({
           </div>
           <div>
             <label htmlFor="tickets-input">Extra tickets:</label>
-
             <input
               type="number"
               id="tickets-input"

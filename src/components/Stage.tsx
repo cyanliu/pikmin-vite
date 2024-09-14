@@ -77,17 +77,13 @@ export default function Stage({
 }: StageProps) {
   /* 4 stages, 4 steps per stage, 1-3 tasks per step */
 
+  // these components are reused for each of the 4 stages,
+  // there are these initialStep & finalStep bookends for allTasks
   let initialStep = (stageNum - 1) * 4;
   let finalStep = initialStep + 3;
-  //
-  let subsetTasks: Task[][] = [];
-  for (let step = initialStep; step <= finalStep; step++) {
-    let taskList: Task[] = [];
-    for (let taskIndex = 0; taskIndex < allTasks[step].length; taskIndex++) {
-      taskList.push(allTasks[step][taskIndex]);
-    }
-    subsetTasks.push(taskList);
-  }
+
+  // subsetTasks = the chunk of allTasks that corresponds to this stage
+  let subsetTasks = allTasks.slice(initialStep, finalStep + 1);
 
   let currStage = currStageStep.split(".")[0];
   let currStep = currStageStep.split(".")[1];
@@ -108,7 +104,6 @@ export default function Stage({
             let tasks: TaskSimple[] = [];
             // map across tasks within a given step
             for (const task of tasksInStep) {
-              console.log(task.label);
               const taskLabel: string = task.label;
 
               // Hiding tasks based on filters chosen in header
