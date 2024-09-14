@@ -83,8 +83,8 @@ export default function Stage({
   let subsetTasks: Task[][] = [];
   for (let step = initialStep; step <= finalStep; step++) {
     let taskList: Task[] = [];
-    for (let goalIndex = 0; goalIndex < allTasks[step].length; goalIndex++) {
-      taskList.push(allTasks[step][goalIndex]);
+    for (let taskIndex = 0; taskIndex < allTasks[step].length; taskIndex++) {
+      taskList.push(allTasks[step][taskIndex]);
     }
     subsetTasks.push(taskList);
   }
