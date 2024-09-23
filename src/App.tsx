@@ -3,6 +3,7 @@ import "./App.scss";
 import Stage from "./components/Stage";
 import SettingsContainer from "./components/SettingsContainer";
 import { totalMushies } from "./challenge_helper";
+import React from "react";
 
 function App() {
   const [currStageStep, setcurrStageStep] = useState<string>("1.1");
