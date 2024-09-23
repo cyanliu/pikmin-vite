@@ -33,7 +33,8 @@ test("transforms raw strings into tasks", () => {
     },
   ];
 
-  const actual: Task[] = [];
+  let actual: Task[];
+  actual = [];
   for (let input of testInputs) {
     let result = transformStringToTask(input);
     if (result) {
