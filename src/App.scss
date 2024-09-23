@@ -1,6 +1,5 @@
 $padding: 0.5rem;
-$box-shadow:
-  rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+$box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
   rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 
 $stage-box-shadow: rgba(50, 50, 93, 0.25) 3px 3px 5px 2px;
@@ -271,7 +270,7 @@ $st4color: rgb(181, 122, 69);
 @media (max-width: 690px) {
   // scoot in the margins around the window on smaller widths
   #root {
-    padding: 0 $window-margins / 4;
+    padding: 0 calc($window-margins / 4);
   }
 
   .floaty {
