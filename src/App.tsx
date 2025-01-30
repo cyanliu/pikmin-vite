@@ -18,6 +18,7 @@ function App() {
   // 1. find which flower is good to use for the any challenges, and provide
   //    that as an on-hover tooltip
   // 2. filter out task types?
+  // 3. actually implement totalDays
 
   let totalDays = Math.floor((totalMushies - numTickets) / 3);
   return (

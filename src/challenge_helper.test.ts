@@ -1,4 +1,8 @@
-import { Task, transformStringToTask } from "./challenge_helper";
+import {
+  Task,
+  transformStringToTask,
+  convertStepToIndex,
+} from "./challenge_helper";
 
 test("transforms raw strings into tasks", () => {
   const testInputs = [
@@ -43,4 +47,9 @@ test("transforms raw strings into tasks", () => {
   }
 
   expect(actual).toEqual(expected);
+});
+
+test("converts stage.step notation to a 0-based index", () => {
+  let actual = convertStepToIndex("1.4");
+  expect(actual).toEqual(3);
 });

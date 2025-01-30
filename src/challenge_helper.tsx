@@ -288,3 +288,8 @@ for (let taskList of allTasks) {
     }
   }
 }
+export function convertStepToIndex(stepInput: string): number {
+  let stage = parseInt(stepInput.split(".")[0]) - 1;
+  let step = parseInt(stepInput.split(".")[1]) - 1;
+  return stage * 4 + step;
+}
