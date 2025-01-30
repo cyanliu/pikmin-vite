@@ -104,6 +104,7 @@ $stage-w: 4rem;
   z-index: -1;
 }
 
+$stage-border-width: 3px;
 .stage1,
 .stage2,
 .stage3,
@@ -128,10 +129,13 @@ $stage-w: 4rem;
 @mixin stage-name-arrow-border {
   content: "";
   position: absolute;
-  top: calc(100% + 3px); /* At the bottom of the tooltip */
+  top: calc(
+    100% + $stage-border-width
+  ); /* At the bottom of the stage section + $stage-border-width for border */
   left: 50%;
-  margin-left: calc(-1 * ($stage-w / 2 + $padding) - 2.12px);
-  border-width: calc($stage-w / 2 + 2px) calc(($stage-w / 2 + $padding) + 2px);
+  margin-left: calc(-1 * ($stage-w / 2 + $padding) - $stage-border-width);
+  border-width: calc($stage-w / 2 + 2px)
+    calc(($stage-w / 2 + $padding) + $stage-border-width);
   border-style: solid;
   border-color: white transparent transparent transparent;
   filter: drop-shadow(2px 3px 3px rgba(50, 50, 93, 0.25));
