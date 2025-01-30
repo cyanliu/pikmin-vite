@@ -10,6 +10,11 @@ $window-margins: 4rem;
   padding: 0 $window-margins;
 }
 
+h1 {
+  font-size: 1.8rem;
+  text-align: center;
+}
+
 .body {
   display: flex;
   flex-direction: column;
@@ -35,7 +40,7 @@ $window-margins: 4rem;
     gap: 1rem;
     & #current-step,
     & input {
-      font-size: 1.25rem;
+      font-size: 1rem;
       padding: $padding;
       border-radius: 1rem;
       border: 1px solid #fff;
@@ -274,5 +279,16 @@ $st4color: rgb(181, 122, 69);
     width: calc(100vw - $window-margins / 4);
     left: calc($window-margins / 8 * -1);
     top: calc($window-margins / 8);
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+  .stage-name h2 {
+    font-size: 1rem;
+  }
+
+  .body {
+    font-size: 0.6rem;
   }
 }
