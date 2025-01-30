@@ -293,3 +293,20 @@ export function convertStepToIndex(stepInput: string): number {
   let step = parseInt(stepInput.split(".")[1]) - 1;
   return stage * 4 + step;
 }
+export function getMushiesRemainingFromStep(
+  step: string,
+  total: number = totalMushies,
+  allTasksIn: Task[][] = allTasks
+): number {
+  let end = convertStepToIndex(step) + 1;
+  let mushiesSoFar = 0;
+  for (let taskList of allTasksIn.slice(0, end)) {
+    for (let task of taskList) {
+      if (task.action === "Destroy") {
+        mushiesSoFar += task.quantity;
+      }
+    }
+  }
+
+  return total - mushiesSoFar;
+}

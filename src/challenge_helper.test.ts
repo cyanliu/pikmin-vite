@@ -2,6 +2,7 @@ import {
   Task,
   transformStringToTask,
   convertStepToIndex,
+  getMushiesRemainingFromStep,
 } from "./challenge_helper";
 
 test("transforms raw strings into tasks", () => {
@@ -52,4 +53,11 @@ test("transforms raw strings into tasks", () => {
 test("converts stage.step notation to a 0-based index", () => {
   let actual = convertStepToIndex("1.4");
   expect(actual).toEqual(3);
+});
+
+test("calculates mushies remaining", () => {
+  // total = 38
+  // 1.4 = "Destroy 2 Mushrooms"
+  let actual = getMushiesRemainingFromStep("1.4");
+  expect(actual).toEqual(36);
 });
