@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Doto:wght@900&display=swap");
+
 $padding: 0.5rem;
 $box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
   rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
@@ -10,11 +12,27 @@ $window-margins: 4rem;
   padding: 0 $window-margins;
 }
 
-h1 {
-  font-size: 1.8rem;
-  text-align: center;
+.doto {
+  font-family: "Doto", serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: bold;
+  font-variation-settings: "ROND" 60;
 }
 
+h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.pikmin-header {
+  display: flex;
+  justify-content: center;
+  img {
+    width: 135px;
+  }
+}
 .body {
   display: flex;
   flex-direction: column;

@@ -3,10 +3,12 @@ import "./App.scss";
 import Stage from "./components/Stage";
 import SettingsContainer from "./components/SettingsContainer";
 import { totalMushies } from "./challenge_helper";
+import pikminLads from "./assets/pikmin.png";
 
 function App() {
   const [currStageStep, setcurrStageStep] = useState<string>("1.1");
   const [numTickets, setNumTickets] = useState<number>(0);
+  const [numMushies, setNumMushies] = useState<number>(3);
 
   const [showWalkTasks, setShowWalkTasks] = useState<boolean>(true);
   const [showPikminTasks, setShowPikminTasks] = useState<boolean>(true);
@@ -25,10 +27,16 @@ function App() {
     <>
       <div className="App">
         <header className="App-header">
-          <h1>Pikmin Monthly Challenge</h1>
+          <h1 className="doto">Pikmin Pals</h1>
         </header>
       </div>
-
+      <div className="pikmin-header">
+        <img
+          src={pikminLads}
+          id="pikmin-lads"
+          alt="A lineup of Pikmin bouncing on top of the contents of the page"
+        />
+      </div>
       <div className="body">
         <SettingsContainer
           showExpeditionTasks={showExpeditionTasks}
