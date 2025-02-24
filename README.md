@@ -1,50 +1,20 @@
-# React + TypeScript + Vite
+# pikmin time!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a little web "app" (well, as of right now, a static site with no backend) I made to get more familiar with bundlers and maintaining web apps with the same kind of tooling I would use in my previous roles, and also serve as a sandbox for me to bridge the gaps in my knowledge around:
 
-Currently, two official plugins are available:
+- Functional components in React
+- SCSS functions and mixins
+- ESLint rules
+- Setting up unit test suites with jest
+- HTML pseudoelements and using funky CSS rules with them
+- Maintaining a cleaner git history -- I want to get much more comfortable with interactive rebasing, patches + hunks, and just extra nitty gritty git (gitty?) details.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Currently, this code is not hosted anywhere, and the only way to view the site is to download the repository and running
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+```bash
+$ npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+in the terminal.
 
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
-```
+The repository was initially built with Create React App, and then migrated over to the Vite framework at around Sept 2024.
