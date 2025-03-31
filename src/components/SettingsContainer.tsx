@@ -1,37 +1,32 @@
 import React from "react";
 
 type SettingsContainerProps = {
-  showExpeditionTasks: boolean;
-  showFlowerTasks: boolean;
-  showMushroomTasks: boolean;
-  showPikminTasks: boolean;
-  showWalkTasks: boolean;
-
   numTickets: number;
-  setShowExpeditionTasks: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowFlowerTasks: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowMushroomTasks: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowPikminTasks: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowWalkTasks: React.Dispatch<React.SetStateAction<boolean>>;
+  onSettingChange: any;
   setcurrStageStep: React.Dispatch<React.SetStateAction<string>>;
   setNumTickets: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function SettingsContainer({
-  showExpeditionTasks,
-  showFlowerTasks,
-  showMushroomTasks,
-  showPikminTasks,
-  showWalkTasks,
   numTickets,
-  setShowExpeditionTasks,
-  setShowFlowerTasks,
-  setShowMushroomTasks,
-  setShowPikminTasks,
-  setShowWalkTasks,
+  onSettingChange,
   setcurrStageStep,
   setNumTickets,
 }: SettingsContainerProps) {
+  const idToIdxMapping: { [inputId: string]: number } = {
+    "expedition-task": 0,
+    "flower-task": 1,
+    "mushroom-task": 2,
+    "pikmin-task": 3,
+    "walk-task": 4,
+  };
+
+  //todo: type these
+  function handleClick(id: string): any {
+    let idx = idToIdxMapping[id];
+    onSettingChange(idx);
+  }
+
   return (
     <>
       <div className="settings-container">
@@ -82,9 +77,8 @@ export default function SettingsContainer({
               type="checkbox"
               id="expedition-task"
               name="expedition"
-              checked={showExpeditionTasks}
-              onChange={() => {
-                setShowExpeditionTasks(!showExpeditionTasks);
+              onChange={(event) => {
+                handleClick(event.target.id);
               }}
             />
             <label htmlFor="expedition-task">Expedition</label>
@@ -94,9 +88,8 @@ export default function SettingsContainer({
               type="checkbox"
               id="flower-task"
               name="flower"
-              checked={showFlowerTasks}
-              onChange={() => {
-                setShowFlowerTasks(!showFlowerTasks);
+              onChange={(event) => {
+                handleClick(event.target.id);
               }}
             />
             <label htmlFor="flower-task">Flower</label>
@@ -106,9 +99,8 @@ export default function SettingsContainer({
               type="checkbox"
               id="mushroom-task"
               name="mushroom"
-              checked={showMushroomTasks}
-              onChange={() => {
-                setShowMushroomTasks(!showMushroomTasks);
+              onChange={(event) => {
+                handleClick(event.target.id);
               }}
             />
             <label htmlFor="mushroom-task">Mushroom</label>
@@ -118,9 +110,8 @@ export default function SettingsContainer({
               type="checkbox"
               id="pikmin-task"
               name="pikmin"
-              checked={showPikminTasks}
-              onChange={() => {
-                setShowPikminTasks(!showPikminTasks);
+              onChange={(event) => {
+                handleClick(event.target.id);
               }}
             />
             <label htmlFor="pikmin-task">Pikmin</label>
@@ -130,9 +121,8 @@ export default function SettingsContainer({
               type="checkbox"
               id="walk-task"
               name="walk"
-              checked={showWalkTasks}
-              onChange={() => {
-                setShowWalkTasks(!showWalkTasks);
+              onChange={(event) => {
+                handleClick(event.target.id);
               }}
             />
             <label htmlFor="walk-task">Walk</label>

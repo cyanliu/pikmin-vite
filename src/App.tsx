@@ -4,6 +4,23 @@ import Stage from "./components/Stage";
 import SettingsContainer from "./components/SettingsContainer";
 import { totalMushies } from "./challenge_helper";
 import pikminLads from "./assets/pikmin.png";
+import { create } from "zustand";
+import { combine } from "zustand/middleware";
+
+const useTaskSettingsStore = create(
+  combine({ taskSettings: Array(5).fill(false) }, (set) => {
+    return {
+      setTaskSettings: (nextTaskSettings) => {
+        set((state) => ({
+          taskSettings:
+            typeof nextTaskSettings === "function"
+              ? nextTaskSettings(state.taskSettings)
+              : nextTaskSettings,
+        }));
+      },
+    };
+  })
+);
 
 function App() {
   const [currStageStep, setcurrStageStep] = useState<string>("1.1");
@@ -16,6 +33,17 @@ function App() {
   const [showMushroomTasks, setShowMushroomTasks] = useState<boolean>(true);
   const [showFlowerTasks, setShowFlowerTasks] = useState<boolean>(true);
 
+  const taskSettings = useTaskSettingsStore((state) => state.taskSettings);
+  const setTaskSettings = useTaskSettingsStore(
+    (state) => state.setTaskSettings
+  );
+
+  // todo: type these
+  function handleTaskSettingChange(idx: number): void {
+    const nextTaskSettings = taskSettings.slice();
+    nextTaskSettings[idx] = !nextTaskSettings[idx];
+    setTaskSettings(nextTaskSettings);
+  }
   // future features:
   // 1. find which flower is good to use for the any challenges, and provide
   //    that as an on-hover tooltip
@@ -39,17 +67,8 @@ function App() {
       </div>
       <div className="body">
         <SettingsContainer
-          showExpeditionTasks={showExpeditionTasks}
-          showFlowerTasks={showFlowerTasks}
-          showMushroomTasks={showMushroomTasks}
-          showPikminTasks={showPikminTasks}
-          showWalkTasks={showWalkTasks}
           numTickets={numTickets}
-          setShowExpeditionTasks={setShowExpeditionTasks}
-          setShowFlowerTasks={setShowFlowerTasks}
-          setShowMushroomTasks={setShowMushroomTasks}
-          setShowPikminTasks={setShowPikminTasks}
-          setShowWalkTasks={setShowWalkTasks}
+          onSettingChange={handleTaskSettingChange}
           setcurrStageStep={setcurrStageStep}
           setNumTickets={setNumTickets}
         ></SettingsContainer>
