@@ -62,17 +62,16 @@ function App() {
         <div className="stage-container">
           {[1, 2, 3, 4].map((num) => {
             return (
-              <>
-                <Stage
-                  stageNum={num}
-                  currStageStep={currStageStep}
-                  showExpeditionTasks={showExpeditionTasks}
-                  showFlowerTasks={showFlowerTasks}
-                  showMushroomTasks={showMushroomTasks}
-                  showPikminTasks={showPikminTasks}
-                  showWalkTasks={showWalkTasks}
-                ></Stage>
-              </>
+              <Stage
+                stageNum={num}
+                currStageStep={currStageStep}
+                showExpeditionTasks={showExpeditionTasks}
+                showFlowerTasks={showFlowerTasks}
+                showMushroomTasks={showMushroomTasks}
+                showPikminTasks={showPikminTasks}
+                showWalkTasks={showWalkTasks}
+                key={num}
+              ></Stage>
             );
           })}
           <div className="floaty"></div>

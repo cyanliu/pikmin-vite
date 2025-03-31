@@ -32,13 +32,14 @@ function TaskRow({ tasksSimple, isCurrentStep }: TaskRowProps) {
   return (
     <>
       <div className={"step " + (isCurrentStep ? "selected" : "")}>
-        {tasksSimple.map((tSimple) => {
+        {tasksSimple.map((tSimple, idx) => {
           if (tSimple.tooltipHint) {
             return (
               <TaskCell
                 label={tSimple.label}
                 flowerTip={tSimple.tooltipHint}
                 isCurrentStep={isCurrentStep}
+                key={idx}
               ></TaskCell>
             );
           } else {
@@ -46,6 +47,7 @@ function TaskRow({ tasksSimple, isCurrentStep }: TaskRowProps) {
               <TaskCell
                 label={tSimple.label}
                 isCurrentStep={isCurrentStep}
+                key={idx}
               ></TaskCell>
             );
           }
@@ -162,6 +164,7 @@ export default function Stage({
               <TaskRow
                 isCurrentStep={isCurrentStep}
                 tasksSimple={tasks}
+                key={idx}
               ></TaskRow>
             );
           })}
