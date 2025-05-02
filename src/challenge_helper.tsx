@@ -4,9 +4,9 @@ import { mayTasks } from "./challenge_archive.tsx";
 const currTasks = mayTasks;
 
 export type FlowerColor = "Blue" | "Red" | "Yellow" | "White" | "Any";
+
 // flower species must be plural
 // TODO: monthly
-
 const SpeciesList = [
   "Calla Lilies",
   "Peonies",
@@ -99,7 +99,6 @@ export function transformStringToTask(input: string): Task | null {
         species = inputFlower.split(" ").slice(1).join(" ") as FlowerSpecies;
       }
 
-      // TODO: monthly
       if (!SpeciesList.includes(species)) {
         return null;
       }
