@@ -121,3 +121,37 @@ export var septTasks = [
     "Destroy 5 Mushrooms",
   ],
 ];
+
+export var mayTasks = [
+  ["Walk 1000 steps"],
+  ["Grow 2 Pikmin"],
+  ["Complete 2 Expeditions"],
+  ["Plant 1000 Flowers", "Destroy 2 mushrooms"],
+
+  ["Walk 2000 Steps"],
+  ["Plant 1000 Flowers", "Destroy 2 mushrooms"],
+  ["Grow 3 Pikmin", "Destroy 3 Mushrooms"],
+  ["Plant 500 Anniversary Roses", "Destroy 4 Mushrooms"],
+
+  ["Complete 3 Expeditions"],
+  ["Plant 1500 White Lilies of the Valley", "Destroy 3 Mushrooms"],
+  ["Plant 1500 Red Lilies of the Valley", "Destroy 4 Mushrooms"],
+  [
+    "Plant 1500 White Lilies of the Valley",
+    "Plant 2000 Red Anniversary Roses",
+    "Destroy 5 Mushrooms",
+  ],
+
+  ["Complete 3 Expeditions", "Destroy 3 Mushrooms"],
+  ["Plant 2000 White Anniversary Roses", "Destroy 4 Mushrooms"],
+  [
+    "Plant 2000 Yellow Anniversary Roses",
+    "Plant 1000 Red Lilies of the Valley",
+    "Destroy 4 Mushrooms",
+  ],
+  [
+    "Plant 2000 Blue Anniversary Roses",
+    "Plant 2500 Lilies of the Valley",
+    "Destroy 5 Mushrooms",
+  ],
+];

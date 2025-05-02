@@ -1,20 +1,28 @@
-import { septTasks } from "./challenge_archive.tsx";
+import { mayTasks } from "./challenge_archive.tsx";
+
+// TODO: monthly
+const currTasks = mayTasks;
 
 export type FlowerColor = "Blue" | "Red" | "Yellow" | "White" | "Any";
 // flower species must be plural
 // TODO: monthly
-export type FlowerSpecies =
-  | "Calla Lilies"
-  | "Peonies"
-  | "Carnations"
-  | "Hydrangeas"
-  | "Frangipanis"
-  | "Water Lilies"
-  | "Morning Glories"
-  | "Hibiscuses"
-  | "Bougainvilleas"
-  | "Dianthuses"
-  | "Any";
+
+const SpeciesList = [
+  "Calla Lilies",
+  "Peonies",
+  "Carnations",
+  "Hydrangeas",
+  "Frangipanis",
+  "Water Lilies",
+  "Morning Glories",
+  "Hibiscuses",
+  "Bougainvilleas",
+  "Dianthuses",
+  "Lilies of the Valley",
+  "Anniversary Roses",
+  "Any",
+];
+export type FlowerSpecies = (typeof SpeciesList)[number];
 export type ActionType = "Walk" | "Grow" | "Complete" | "Plant" | "Destroy";
 
 type BasicTask = {
@@ -92,19 +100,7 @@ export function transformStringToTask(input: string): Task | null {
       }
 
       // TODO: monthly
-      if (
-        species !== "Calla Lilies" &&
-        species !== "Peonies" &&
-        species !== "Carnations" &&
-        species !== "Hydrangeas" &&
-        species !== "Frangipanis" &&
-        species !== "Water Lilies" &&
-        species !== "Morning Glories" &&
-        species !== "Hibiscuses" &&
-        species !== "Bougainvilleas" &&
-        species !== "Dianthuses" &&
-        species !== "Any"
-      ) {
+      if (!SpeciesList.includes(species)) {
         return null;
       }
 
@@ -123,9 +119,6 @@ export function transformStringToTask(input: string): Task | null {
 }
 
 export let allTasks: Task[][] = [];
-
-// TODO: monthly
-const currTasks = septTasks;
 
 for (let step = 0; step < currTasks.length; step++) {
   let stepTaskList: Task[] = [];
@@ -156,6 +149,7 @@ export let anyFlowerTasks = {
   Hibiscuses: "none :(",
   Bougainvilleas: "??",
   Dianthuses: "??",
+  "Lilies of the Valley": "??",
 };
 
 export let totalMushies = 0;
