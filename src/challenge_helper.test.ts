@@ -58,6 +58,6 @@ test("converts stage.step notation to a 0-based index", () => {
 test("calculates mushies remaining", () => {
   // total = 38
   // 1.4 = "Destroy 2 Mushrooms"
-  let actual = getMushiesRemainingFromStep("1.4");
+  let actual = getMushiesRemainingFromStep("1.4", 38);
   expect(actual).toEqual(36);
 });
