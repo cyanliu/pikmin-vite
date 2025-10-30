@@ -1,18 +1,17 @@
-import React from "react";
-
 type SettingsContainerProps = {
-  numTickets: number;
-  onSettingChange: any;
-  setcurrStageStep: React.Dispatch<React.SetStateAction<string>>;
-  setNumTickets: React.Dispatch<React.SetStateAction<number>>;
+  onSettingsChange: any;
+  onCurrentProgressChange: any;
+  ticketCount: number;
 };
 
 export default function SettingsContainer({
-  numTickets,
-  onSettingChange,
-  setcurrStageStep,
-  setNumTickets,
+  onSettingsChange,
+  onCurrentProgressChange,
+  ticketCount,
 }: SettingsContainerProps) {
+  //todo: type these
+  // passes index of toggled filter back up to state management in app.tsx
+  // mapping from id of input to index of array
   const idToIdxMapping: { [inputId: string]: number } = {
     "expedition-task": 0,
     "flower-task": 1,
@@ -21,11 +20,22 @@ export default function SettingsContainer({
     "walk-task": 4,
   };
 
-  //todo: type these
-  function handleClick(id: string): any {
+  function handleFilterClick(id: string): any {
     let idx = idToIdxMapping[id];
-    onSettingChange(idx);
+    onSettingsChange(idx);
   }
+
+  function handleStepUpdate(val: string) {
+    onCurrentProgressChange("step", val);
+  }
+
+  function handleTicketUpdate(val: string) {
+    onCurrentProgressChange("ticket", val);
+  }
+
+  // function handleMushiesUpdate(val: string) {
+  //   onCurrentProgressChange("mushies", val);
+  // }
 
   return (
     <>
@@ -37,7 +47,7 @@ export default function SettingsContainer({
               id="current-step"
               onChange={(event) => {
                 let stepGoal = event.currentTarget.value;
-                setcurrStageStep(stepGoal);
+                handleStepUpdate(stepGoal);
               }}
             >
               <option value={"1.1"}>1.1</option>
@@ -64,9 +74,10 @@ export default function SettingsContainer({
               type="number"
               id="tickets-input"
               onChange={(event) => {
-                setNumTickets(parseInt(event.target.value));
+                console.log(event);
+                handleTicketUpdate;
               }}
-              value={numTickets}
+              value={ticketCount}
               min={0}
             ></input>
           </div>
@@ -78,7 +89,7 @@ export default function SettingsContainer({
               id="expedition-task"
               name="expedition"
               onChange={(event) => {
-                handleClick(event.target.id);
+                handleFilterClick(event.target.id);
               }}
             />
             <label htmlFor="expedition-task">Expedition</label>
@@ -89,7 +100,7 @@ export default function SettingsContainer({
               id="flower-task"
               name="flower"
               onChange={(event) => {
-                handleClick(event.target.id);
+                handleFilterClick(event.target.id);
               }}
             />
             <label htmlFor="flower-task">Flower</label>
@@ -100,7 +111,7 @@ export default function SettingsContainer({
               id="mushroom-task"
               name="mushroom"
               onChange={(event) => {
-                handleClick(event.target.id);
+                handleFilterClick(event.target.id);
               }}
             />
             <label htmlFor="mushroom-task">Mushroom</label>
@@ -111,7 +122,7 @@ export default function SettingsContainer({
               id="pikmin-task"
               name="pikmin"
               onChange={(event) => {
-                handleClick(event.target.id);
+                handleFilterClick(event.target.id);
               }}
             />
             <label htmlFor="pikmin-task">Pikmin</label>
@@ -122,7 +133,7 @@ export default function SettingsContainer({
               id="walk-task"
               name="walk"
               onChange={(event) => {
-                handleClick(event.target.id);
+                handleFilterClick(event.target.id);
               }}
             />
             <label htmlFor="walk-task">Walk</label>
