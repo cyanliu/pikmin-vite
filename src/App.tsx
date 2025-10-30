@@ -18,7 +18,7 @@ import { combine, devtools } from "zustand/middleware";
 // Expedition | Flower | Mushroom | Pikmin | Walk
 const useFilterSettingsStore = create(
   devtools(
-    combine({ filterSettings: Array(5).fill(false) }, (set) => {
+    combine({ filterSettings: Array(5).fill(true) }, (set) => {
       return {
         setNewSettings: (newFilters: boolean[]) => {
           set(() => ({ filterSettings: newFilters }));
@@ -64,13 +64,6 @@ const useFilterSettingsStore = create(
 
 function App() {
   const [currStageStep, setcurrStageStep] = useState<string>("1.1");
-
-  // todo: rm after implementing zustand, <Stage> component uses these
-  const [showWalkTasks, setShowWalkTasks] = useState<boolean>(true);
-  const [showPikminTasks, setShowPikminTasks] = useState<boolean>(true);
-  const [showExpeditionTasks, setShowExpeditionTasks] = useState<boolean>(true);
-  const [showMushroomTasks, setShowMushroomTasks] = useState<boolean>(true);
-  const [showFlowerTasks, setShowFlowerTasks] = useState<boolean>(true);
 
   const filterSettings = useFilterSettingsStore(
     (state) => state.filterSettings
@@ -133,6 +126,7 @@ function App() {
         <SettingsContainer
           onSettingsChange={handleFilterSettingChange}
           onCurrentProgressChange={handleCurrentProgressChange}
+          filterState={filterSettings}
           ticketCount={ticketCount}
         ></SettingsContainer>
         <div className="totals-container">
@@ -147,11 +141,11 @@ function App() {
               <Stage
                 stageNum={num}
                 currStageStep={currStageStep}
-                showExpeditionTasks={showExpeditionTasks}
-                showFlowerTasks={showFlowerTasks}
-                showMushroomTasks={showMushroomTasks}
-                showPikminTasks={showPikminTasks}
-                showWalkTasks={showWalkTasks}
+                showExpeditionTasks={filterSettings[0]}
+                showFlowerTasks={filterSettings[1]}
+                showMushroomTasks={filterSettings[2]}
+                showPikminTasks={filterSettings[3]}
+                showWalkTasks={filterSettings[4]}
                 key={num}
               ></Stage>
             );

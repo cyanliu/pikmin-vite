@@ -2,12 +2,18 @@ type SettingsContainerProps = {
   onSettingsChange: any;
   onCurrentProgressChange: any;
   ticketCount: number;
+  // ties filter state to visual appearance of checkbox
+  // hopefully making the filter state the sole source of truth on
+  // checkbox checked-ness in this component
+  // and also whether or not the tasks appear in the stage component
+  filterState: boolean[];
 };
 
 export default function SettingsContainer({
   onSettingsChange,
   onCurrentProgressChange,
   ticketCount,
+  filterState,
 }: SettingsContainerProps) {
   //todo: type these
   // passes index of toggled filter back up to state management in app.tsx
@@ -88,6 +94,7 @@ export default function SettingsContainer({
               type="checkbox"
               id="expedition-task"
               name="expedition"
+              checked={filterState[0]}
               onChange={(event) => {
                 handleFilterClick(event.target.id);
               }}
@@ -99,6 +106,7 @@ export default function SettingsContainer({
               type="checkbox"
               id="flower-task"
               name="flower"
+              checked={filterState[1]}
               onChange={(event) => {
                 handleFilterClick(event.target.id);
               }}
@@ -110,6 +118,7 @@ export default function SettingsContainer({
               type="checkbox"
               id="mushroom-task"
               name="mushroom"
+              checked={filterState[2]}
               onChange={(event) => {
                 handleFilterClick(event.target.id);
               }}
@@ -121,6 +130,7 @@ export default function SettingsContainer({
               type="checkbox"
               id="pikmin-task"
               name="pikmin"
+              checked={filterState[3]}
               onChange={(event) => {
                 handleFilterClick(event.target.id);
               }}
@@ -132,6 +142,7 @@ export default function SettingsContainer({
               type="checkbox"
               id="walk-task"
               name="walk"
+              checked={filterState[4]}
               onChange={(event) => {
                 handleFilterClick(event.target.id);
               }}
