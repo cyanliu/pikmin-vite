@@ -1,28 +1,19 @@
-import { anyFlowerTasks, Task, allTasks } from "../challenge_helper";
+import { allTasks } from "../challenge_helper";
 
 type TaskCellProps = {
   label: string;
-  flowerTip?: string | null;
   isCurrentStep: boolean;
 };
 
-function TaskCell({ label, flowerTip, isCurrentStep }: TaskCellProps) {
+function TaskCell({ label, isCurrentStep }: TaskCellProps) {
   return (
     <div className={"goal " + (isCurrentStep ? "selected" : "")}>
       <span className="">{label}</span>
-      {flowerTip ? (
-        <div className="tooltip">
-          👀
-          <span className="tooltiptext">{flowerTip}</span>
-        </div>
-      ) : (
-        <></>
-      )}
     </div>
   );
 }
 
-type TaskSimple = { label: string; tooltipHint?: string | null };
+type TaskSimple = { label: string };
 type TaskRowProps = {
   tasksSimple: TaskSimple[];
   isCurrentStep: boolean;
@@ -33,24 +24,13 @@ function TaskRow({ tasksSimple, isCurrentStep }: TaskRowProps) {
     <>
       <div className={"step " + (isCurrentStep ? "selected" : "")}>
         {tasksSimple.map((tSimple, idx) => {
-          if (tSimple.tooltipHint) {
-            return (
-              <TaskCell
-                label={tSimple.label}
-                flowerTip={tSimple.tooltipHint}
-                isCurrentStep={isCurrentStep}
-                key={idx}
-              ></TaskCell>
-            );
-          } else {
-            return (
-              <TaskCell
-                label={tSimple.label}
-                isCurrentStep={isCurrentStep}
-                key={idx}
-              ></TaskCell>
-            );
-          }
+          return (
+            <TaskCell
+              label={tSimple.label}
+              isCurrentStep={isCurrentStep}
+              key={idx}
+            ></TaskCell>
+          );
         })}
       </div>
     </>
@@ -142,20 +122,7 @@ export default function Stage({
                 });
                 continue;
               }
-
-              // Render suggested color for plant "any" flowers
-              if (
-                task.action === "Plant" &&
-                task.flower.color === "Any" &&
-                task.flower.species !== "Any"
-              ) {
-                tasks.push({
-                  label: taskLabel,
-                  tooltipHint: anyFlowerTasks[task.flower.species],
-                });
-              } else {
-                tasks.push({ label: taskLabel, tooltipHint: null });
-              }
+              tasks.push({ label: taskLabel });
             }
 
             let isCurrentStep =
