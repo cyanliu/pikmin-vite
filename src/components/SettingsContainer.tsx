@@ -1,7 +1,8 @@
 type SettingsContainerProps = {
   onSettingsChange: any;
   onCurrentProgressChange: any;
-  ticketCount: number;
+  // todo: type this better
+  currentProgress: any;
   // ties filter state to visual appearance of checkbox
   // hopefully making the filter state the sole source of truth on
   // checkbox checked-ness in this component
@@ -12,7 +13,7 @@ type SettingsContainerProps = {
 export default function SettingsContainer({
   onSettingsChange,
   onCurrentProgressChange,
-  ticketCount,
+  currentProgress,
   filterState,
 }: SettingsContainerProps) {
   //todo: type these
@@ -39,9 +40,9 @@ export default function SettingsContainer({
     onCurrentProgressChange("ticket", val);
   }
 
-  // function handleMushiesUpdate(val: string) {
-  //   onCurrentProgressChange("mushies", val);
-  // }
+  function handleMushiesUpdate(val: string) {
+    onCurrentProgressChange("mushies", val);
+  }
 
   return (
     <>
@@ -75,15 +76,26 @@ export default function SettingsContainer({
             </select>
           </div>
           <div>
-            <label htmlFor="tickets-input">Extra tickets:</label>
+            <label htmlFor="tickets-input">Extra Tickets:</label>
             <input
               type="number"
               id="tickets-input"
               onChange={(event) => {
-                console.log(event);
-                handleTicketUpdate;
+                handleTicketUpdate(event.currentTarget.value);
               }}
-              value={ticketCount}
+              value={currentProgress.ticketCount}
+              min={0}
+            ></input>
+          </div>
+          <div>
+            <label htmlFor="mushies-input">Daily Attempts Remaining:</label>
+            <input
+              type="number"
+              id="mushies-input"
+              onChange={(event) => {
+                handleMushiesUpdate(event.currentTarget.value);
+              }}
+              value={currentProgress.mushiesRemaining}
               min={0}
             ></input>
           </div>

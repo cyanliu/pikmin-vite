@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./App.scss";
 import Stage from "./components/Stage";
 import SettingsContainer from "./components/SettingsContainer";
@@ -28,43 +27,32 @@ const useFilterSettingsStore = create(
   )
 );
 
-// const useCurrentProgressStore = create(
-//   combine(
-//     { currentStep: "1.1", ticketCount: 0, mushiesRemaining: 3 },
-//     (set) => {
-//       return {
-//         setCurrentStep: (nextCurrentStep) => {
-//           set((state) => ({
-//             currentStep:
-//               typeof nextCurrentStep === "function"
-//                 ? nextCurrentStep(state.currentStep)
-//                 : nextCurrentStep,
-//           }));
-//         },
-//         setTicketCount: (nextTicketCount) => {
-//           set((state) => ({
-//             currentStep:
-//               typeof nextTicketCount === "function"
-//                 ? nextTicketCount(state.ticketCount)
-//                 : nextTicketCount,
-//           }));
-//         },
-//         setMushiesRemaining: (nextMushiesRemaining: string) => {
-//           set((state) => ({
-//             currentStep:
-//               typeof nextMushiesRemaining === "function"
-//                 ? nextMushiesRemaining(state.mushiesRemaining)
-//                 : nextMushiesRemaining,
-//           }));
-//         },
-//       };
-//     }
-//   )
-// );
+const useCurrentProgressStore = create(
+  combine(
+    { currentStep: "1.1", ticketCount: 0, mushiesRemaining: 3 },
+    (set) => {
+      return {
+        setCurrentStep: (nextCurrentStep: string) => {
+          set(() => ({
+            currentStep: nextCurrentStep,
+          }));
+        },
+        setTicketCount: (nextTicketCount: number) => {
+          set(() => ({
+            ticketCount: nextTicketCount,
+          }));
+        },
+        setMushiesRemaining: (nextMushiesRemaining: number) => {
+          set(() => ({
+            mushiesRemaining: nextMushiesRemaining,
+          }));
+        },
+      };
+    }
+  )
+);
 
 function App() {
-  const [currStageStep, setcurrStageStep] = useState<string>("1.1");
-
   const filterSettings = useFilterSettingsStore(
     (state) => state.filterSettings
   );
@@ -72,8 +60,21 @@ function App() {
     (state) => state.setNewSettings
   );
 
+  const currentProgress = useCurrentProgressStore();
+
+  const setCurrentStep = useCurrentProgressStore(
+    (state) => state.setCurrentStep
+  );
+
+  const setTicketCount = useCurrentProgressStore(
+    (state) => state.setTicketCount
+  );
+
+  const setMushiesRemaining = useCurrentProgressStore(
+    (state) => state.setMushiesRemaining
+  );
+
   // todo: type these
-  // rece
 
   // Handles click on a given filter (Expedition | Flower | Mushroom | Pikmin | Walk)
   // updating array based on idx passed when handleFilterSettingChange was called
@@ -90,9 +91,11 @@ function App() {
 
   function handleCurrentProgressChange(settingType: string, val: string): void {
     if (settingType === "step") {
-      console.log("step", val);
+      setCurrentStep(val);
     } else if (settingType === "ticket") {
+      setTicketCount(Number(val));
     } else if (settingType === "mushies") {
+      setMushiesRemaining(Number(val));
     } else {
       return;
     }
@@ -103,11 +106,12 @@ function App() {
   // 2. filter out task types?
   // 3. actually implement totalDays
 
-  // const ticketCount = useCurrentProgressStore((state) => state.ticketCount);
-  // let totalDays = Math.floor((totalMushies - ticketCount) / 3);
+  // TODO: recalculate total mushies based on current step
+  const ticketCount = currentProgress.ticketCount;
+  let totalDays = Math.floor(
+    (totalMushies - ticketCount - currentProgress.mushiesRemaining) / 3
+  );
 
-  const ticketCount = 0;
-  let totalDays = 13;
   return (
     <>
       <div className="App">
@@ -127,7 +131,7 @@ function App() {
           onSettingsChange={handleFilterSettingChange}
           onCurrentProgressChange={handleCurrentProgressChange}
           filterState={filterSettings}
-          ticketCount={ticketCount}
+          currentProgress={currentProgress}
         ></SettingsContainer>
         <div className="totals-container">
           <div className="totals-row">
@@ -140,7 +144,7 @@ function App() {
             return (
               <Stage
                 stageNum={num}
-                currStageStep={currStageStep}
+                currStageStep={currentProgress.currentStep}
                 showExpeditionTasks={filterSettings[0]}
                 showFlowerTasks={filterSettings[1]}
                 showMushroomTasks={filterSettings[2]}
