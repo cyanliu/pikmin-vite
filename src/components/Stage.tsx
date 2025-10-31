@@ -1,19 +1,20 @@
-import { allTasks } from "../challenge_helper";
+import { ActionType, allTasks } from "../challenge_helper";
 
 type TaskCellProps = {
   label: string;
+  action: ActionType;
   isCurrentStep: boolean;
 };
 
-function TaskCell({ label, isCurrentStep }: TaskCellProps) {
+function TaskCell({ label, action, isCurrentStep }: TaskCellProps) {
   return (
     <div className={"goal " + (isCurrentStep ? "selected" : "")}>
-      <span className="">{label}</span>
+      <span className={action}>{label}</span>
     </div>
   );
 }
 
-type TaskSimple = { label: string };
+type TaskSimple = { label: string; action: ActionType };
 type TaskRowProps = {
   tasksSimple: TaskSimple[];
   isCurrentStep: boolean;
@@ -27,6 +28,7 @@ function TaskRow({ tasksSimple, isCurrentStep }: TaskRowProps) {
           return (
             <TaskCell
               label={tSimple.label}
+              action={tSimple.action}
               isCurrentStep={isCurrentStep}
               key={idx}
             ></TaskCell>
@@ -91,6 +93,7 @@ export default function Stage({
               if (!showExpeditionTasks && task.action === "Complete") {
                 tasks.push({
                   label: "-",
+                  action: task.action,
                 });
                 continue;
               }
@@ -98,6 +101,7 @@ export default function Stage({
               if (!showFlowerTasks && task.action === "Plant") {
                 tasks.push({
                   label: "-",
+                  action: task.action,
                 });
                 continue;
               }
@@ -105,6 +109,7 @@ export default function Stage({
               if (!showMushroomTasks && task.action === "Destroy") {
                 tasks.push({
                   label: "-",
+                  action: task.action,
                 });
                 continue;
               }
@@ -112,6 +117,7 @@ export default function Stage({
               if (!showPikminTasks && task.action === "Grow") {
                 tasks.push({
                   label: "-",
+                  action: task.action,
                 });
                 continue;
               }
@@ -119,10 +125,11 @@ export default function Stage({
               if (!showWalkTasks && task.action === "Walk") {
                 tasks.push({
                   label: "-",
+                  action: task.action,
                 });
                 continue;
               }
-              tasks.push({ label: taskLabel });
+              tasks.push({ label: taskLabel, action: task.action });
             }
 
             let isCurrentStep =
