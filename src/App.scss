@@ -239,6 +239,26 @@ $st4color: rgb(214, 98, 93);
 
 .goal {
   width: 33%;
+
+  & .plant::before {
+    content: "🌻 ";
+  }
+
+  & .walk::before {
+    content: "🏃 ";
+  }
+
+  & .destroy::before {
+    content: "🍄 ";
+  }
+
+  & .complete::before {
+    content: "✅ ";
+  }
+
+  & .grow::before {
+    content: "🌱 ";
+  }
 }
 
 .tooltip {
