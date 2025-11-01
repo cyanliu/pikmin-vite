@@ -8,8 +8,8 @@ type TaskCellProps = {
 
 function TaskCell({ label, action, isCurrentStep }: TaskCellProps) {
   return (
-    <div className={"goal " + (isCurrentStep ? "selected" : "")}>
-      <span className={action}>{label}</span>
+    <div className={"goal" + (isCurrentStep ? " selected" : "")}>
+      <span className={action.toLowerCase()}>{label}</span>
     </div>
   );
 }
@@ -23,7 +23,7 @@ type TaskRowProps = {
 function TaskRow({ tasksSimple, isCurrentStep }: TaskRowProps) {
   return (
     <>
-      <div className={"step " + (isCurrentStep ? "selected" : "")}>
+      <div className={"step" + (isCurrentStep ? " selected" : "")}>
         {tasksSimple.map((tSimple, idx) => {
           return (
             <TaskCell
@@ -76,7 +76,7 @@ export default function Stage({
       <div className={"stage" + stageNum}>
         <div
           className={
-            "stage-name " + (currStage === String(stageNum) ? "selected" : "")
+            "stage-name" + (currStage === String(stageNum) ? " selected" : "")
           }
         >
           <h2>Stage {stageNum}</h2>
