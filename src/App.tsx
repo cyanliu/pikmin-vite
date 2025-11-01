@@ -5,6 +5,7 @@ import { totalMushies } from "./challenge_helper";
 import pikminLads from "./assets/pikmin.png";
 import { create } from "zustand";
 import { combine, devtools } from "zustand/middleware";
+import TotalsContainer from "./components/TotalsContainer";
 
 // https://zustand.docs.pmnd.rs/guides/typescript
 // interface TaskSettingsState {
@@ -133,12 +134,10 @@ function App() {
           filterState={filterSettings}
           currentProgress={currentProgress}
         ></SettingsContainer>
-        <div className="totals-container">
-          <div className="totals-row">
-            <span>Total mushies left: {totalMushies}</span>
-            <span>Total days required: {totalDays}</span>
-          </div>
-        </div>
+        <TotalsContainer
+          totalMushies={totalMushies}
+          totalDays={totalDays}
+        ></TotalsContainer>
         <div className="stage-container">
           {[1, 2, 3, 4].map((num) => {
             return (
