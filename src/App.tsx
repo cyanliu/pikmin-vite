@@ -4,7 +4,12 @@ import SettingsContainer from "./components/SettingsContainer";
 import { totalMushies } from "./challenge_helper";
 import pikminLads from "./assets/pikmin.png";
 import { create } from "zustand";
-import { combine, devtools } from "zustand/middleware";
+import {
+  combine,
+  createJSONStorage,
+  devtools,
+  persist,
+} from "zustand/middleware";
 import TotalsContainer from "./components/TotalsContainer";
 
 // https://zustand.docs.pmnd.rs/guides/typescript
@@ -29,26 +34,32 @@ const useFilterSettingsStore = create(
 );
 
 const useCurrentProgressStore = create(
-  combine(
-    { currentStep: "1.1", ticketCount: 0, mushiesRemaining: 3 },
-    (set) => {
-      return {
-        setCurrentStep: (nextCurrentStep: string) => {
-          set(() => ({
-            currentStep: nextCurrentStep,
-          }));
-        },
-        setTicketCount: (nextTicketCount: number) => {
-          set(() => ({
-            ticketCount: nextTicketCount,
-          }));
-        },
-        setMushiesRemaining: (nextMushiesRemaining: number) => {
-          set(() => ({
-            mushiesRemaining: nextMushiesRemaining,
-          }));
-        },
-      };
+  persist(
+    combine(
+      { currentStep: "1.1", ticketCount: 0, mushiesRemaining: 3 },
+      (set) => {
+        return {
+          setCurrentStep: (nextCurrentStep: string) => {
+            set(() => ({
+              currentStep: nextCurrentStep,
+            }));
+          },
+          setTicketCount: (nextTicketCount: number) => {
+            set(() => ({
+              ticketCount: nextTicketCount,
+            }));
+          },
+          setMushiesRemaining: (nextMushiesRemaining: number) => {
+            set(() => ({
+              mushiesRemaining: nextMushiesRemaining,
+            }));
+          },
+        };
+      }
+    ),
+    {
+      name: "current-progress",
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );
