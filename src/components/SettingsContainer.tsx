@@ -48,7 +48,7 @@ export default function SettingsContainer({
     <>
       <div className="settings-container">
         <div className="curr-step-container">
-          <div>
+          <div className="curr-step-item">
             <label htmlFor="current-step">Current Step:</label>
             <select
               id="current-step"
@@ -75,7 +75,7 @@ export default function SettingsContainer({
               <option value={"4.4"}>4.4</option>
             </select>
           </div>
-          <div>
+          <div className="curr-step-item">
             <label htmlFor="tickets-input">Extra Tickets:</label>
             <input
               type="number"
@@ -87,7 +87,7 @@ export default function SettingsContainer({
               min={0}
             ></input>
           </div>
-          <div>
+          <div className="curr-step-item">
             <label htmlFor="mushies-input">Daily Attempts Remaining:</label>
             <input
               type="number"
