@@ -22,6 +22,8 @@ const SpeciesList = [
   "Orchid Cactuses",
   "Any",
 ];
+
+// TODO: split flower species into primary (new this month) and secondary (existing/already introduced?)
 export type FlowerSpecies = (typeof SpeciesList)[number];
 export type ActionType = "Walk" | "Grow" | "Complete" | "Plant" | "Destroy";
 
@@ -40,7 +42,10 @@ type FlowerTask = {
 
 export type Task = BasicTask | FlowerTask;
 
-export function transformStringToTask(input: string): Task | null {
+export let totalMushies = 0;
+export function transformStringToTaskAndCountTotalMushies(
+  input: string,
+): Task | null {
   let action = input.split(" ")[0];
 
   if (
@@ -112,6 +117,10 @@ export function transformStringToTask(input: string): Task | null {
       flower: flowerStruct,
     };
   } else {
+    if (action === "Destroy") {
+      totalMushies += quantity;
+    }
+
     return { label: input, action: action, quantity: quantity };
   }
 }
@@ -122,7 +131,7 @@ for (let step = 0; step < currTasks.length; step++) {
   let stepTaskList: Task[] = [];
   for (let task = 0; task < currTasks[step].length; task++) {
     let taskToParse = currTasks[step][task];
-    let parsed = transformStringToTask(taskToParse);
+    let parsed = transformStringToTaskAndCountTotalMushies(taskToParse);
     if (parsed !== null) {
       stepTaskList.push(parsed);
     }
@@ -150,14 +159,6 @@ export let anyFlowerTasks = {
   "Lilies of the Valley": "??",
 };
 
-export let totalMushies = 0;
-for (let taskList of allTasks) {
-  for (let task of taskList) {
-    if (task.action === "Destroy") {
-      totalMushies += task.quantity;
-    }
-  }
-}
 export function convertStepToIndex(stepInput: string): number {
   let stage = parseInt(stepInput.split(".")[0]) - 1;
   let step = parseInt(stepInput.split(".")[1]) - 1;
