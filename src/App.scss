@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Doto:wght@900&display=swap");
 
 $padding: 0.5rem;
-$box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+$box-shadow:
+  rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
   rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 
 $stage-box-shadow: rgba(50, 50, 93, 0.25) 3px 3px 5px 2px;
@@ -167,10 +168,10 @@ $stage-border-width: 3px;
 }
 
 // TODO: monthly
-$st1color: rgb(241, 157, 176);
-$st2color: rgb(231, 144, 154);
-$st3color: rgb(223, 119, 123);
-$st4color: rgb(214, 98, 93);
+$st1color: rgb(255, 165, 186);
+$st2color: rgb(246, 141, 155);
+$st3color: rgb(240, 114, 121);
+$st4color: rgb(232, 88, 88);
 .stage-name {
   background-color: hsla(210, 100%, 50%, 0.125);
   align-content: center;

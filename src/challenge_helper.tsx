@@ -1,7 +1,5 @@
-import { mayTasks } from "./challenge_archive.tsx";
-
 // TODO: monthly
-const currTasks = mayTasks;
+import { currTasks } from "./2026_challenge_list.tsx";
 
 export type FlowerColor = "Blue" | "Red" | "Yellow" | "White" | "Any";
 
@@ -20,6 +18,8 @@ const SpeciesList = [
   "Dianthuses",
   "Lilies of the Valley",
   "Anniversary Roses",
+  "Birds of Paradise",
+  "Orchid Cactuses",
   "Any",
 ];
 export type FlowerSpecies = (typeof SpeciesList)[number];
@@ -54,7 +54,6 @@ export function transformStringToTask(input: string): Task | null {
   }
 
   let quantity = parseInt(input.split(" ")[1]);
-  // some shitty code but quantity will never be 0 i hope
   if (!quantity) {
     return null;
   }
@@ -167,7 +166,7 @@ export function convertStepToIndex(stepInput: string): number {
 export function getMushiesRemainingFromStep(
   step: string,
   total: number = totalMushies,
-  allTasksIn: Task[][] = allTasks
+  allTasksIn: Task[][] = allTasks,
 ): number {
   let end = convertStepToIndex(step) + 1;
   let mushiesSoFar = 0;
