@@ -76,7 +76,7 @@ export default function SettingsContainer({
             </select>
           </div>
           <div className="curr-step-item">
-            <label htmlFor="tickets-input">Extra Tickets:</label>
+            <label htmlFor="tickets-input">Mushroom Tickets Available:</label>
             <input
               type="number"
               id="tickets-input"

@@ -1,5 +1,5 @@
 // TODO: monthly
-import { currTasks } from "./2026_challenge_list.tsx";
+import { currTasks } from "./2026_challenge_list";
 
 export type FlowerColor = "Blue" | "Red" | "Yellow" | "White" | "Any";
 
@@ -28,12 +28,14 @@ export type FlowerSpecies = (typeof SpeciesList)[number];
 export type ActionType = "Walk" | "Grow" | "Complete" | "Plant" | "Destroy";
 
 type BasicTask = {
+  mushiesDefeatedSoFar: number;
   label: string;
   quantity: number;
   action: "Walk" | "Grow" | "Complete" | "Destroy";
 };
 
 type FlowerTask = {
+  mushiesDefeatedSoFar: number;
   label: string;
   quantity: number;
   action: "Plant";
@@ -42,7 +44,6 @@ type FlowerTask = {
 
 export type Task = BasicTask | FlowerTask;
 
-export let totalMushies = 0;
 export function transformStringToTaskAndCountTotalMushies(
   input: string,
 ): Task | null {
@@ -115,18 +116,24 @@ export function transformStringToTaskAndCountTotalMushies(
       action: action,
       quantity: quantity,
       flower: flowerStruct,
+      mushiesDefeatedSoFar: totalMushies,
     };
   } else {
     if (action === "Destroy") {
       totalMushies += quantity;
     }
 
-    return { label: input, action: action, quantity: quantity };
+    return {
+      label: input,
+      action: action,
+      quantity: quantity,
+      mushiesDefeatedSoFar: totalMushies,
+    };
   }
 }
 
 export let allTasks: Task[][] = [];
-
+export let totalMushies = 0;
 for (let step = 0; step < currTasks.length; step++) {
   let stepTaskList: Task[] = [];
   for (let task = 0; task < currTasks[step].length; task++) {
@@ -164,20 +171,13 @@ export function convertStepToIndex(stepInput: string): number {
   let step = parseInt(stepInput.split(".")[1]) - 1;
   return stage * 4 + step;
 }
-export function getMushiesRemainingFromStep(
+
+// Returns the number of mushies that have been defeated so far *prior* to the current step
+// i.e. for Step 1.4, it assumes 0 mushies have been defeated
+export function getMushiesDefeatedSoFar(
   step: string,
-  total: number = totalMushies,
   allTasksIn: Task[][] = allTasks,
 ): number {
-  let end = convertStepToIndex(step) + 1;
-  let mushiesSoFar = 0;
-  for (let taskList of allTasksIn.slice(0, end)) {
-    for (let task of taskList) {
-      if (task.action === "Destroy") {
-        mushiesSoFar += task.quantity;
-      }
-    }
-  }
-
-  return total - mushiesSoFar;
+  let idx = convertStepToIndex(step);
+  return allTasksIn[idx][0].mushiesDefeatedSoFar;
 }

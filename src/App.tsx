@@ -1,7 +1,7 @@
 import "./App.scss";
 import Stage from "./components/Stage";
 import SettingsContainer from "./components/SettingsContainer";
-import { totalMushies } from "./challenge_helper";
+import { getMushiesDefeatedSoFar, totalMushies } from "./challenge_helper";
 import pikminLads from "./assets/pikmin.png";
 import { create } from "zustand";
 import {
@@ -29,8 +29,8 @@ const useFilterSettingsStore = create(
           set(() => ({ filterSettings: newFilters }));
         },
       };
-    })
-  )
+    }),
+  ),
 );
 
 const useCurrentProgressStore = create(
@@ -55,35 +55,35 @@ const useCurrentProgressStore = create(
             }));
           },
         };
-      }
+      },
     ),
     {
       name: "current-progress",
       storage: createJSONStorage(() => localStorage),
-    }
-  )
+    },
+  ),
 );
 
 function App() {
   const filterSettings = useFilterSettingsStore(
-    (state) => state.filterSettings
+    (state) => state.filterSettings,
   );
   const setFilterSettings = useFilterSettingsStore(
-    (state) => state.setNewSettings
+    (state) => state.setNewSettings,
   );
 
   const currentProgress = useCurrentProgressStore();
 
   const setCurrentStep = useCurrentProgressStore(
-    (state) => state.setCurrentStep
+    (state) => state.setCurrentStep,
   );
 
   const setTicketCount = useCurrentProgressStore(
-    (state) => state.setTicketCount
+    (state) => state.setTicketCount,
   );
 
   const setMushiesRemaining = useCurrentProgressStore(
-    (state) => state.setMushiesRemaining
+    (state) => state.setMushiesRemaining,
   );
 
   // todo: type these
@@ -115,13 +115,15 @@ function App() {
   // future features:
   // 1. find which flower is good to use for the any challenges, and provide
   //    that as an on-hover tooltip
-  // 2. filter out task types?
-  // 3. actually implement totalDays
+  // 2a. Provide additional filters/statistics on flower color and species
 
-  // TODO: recalculate total mushies based on current step
   const ticketCount = currentProgress.ticketCount;
-  let totalDays = Math.floor(
-    (totalMushies - ticketCount - currentProgress.mushiesRemaining) / 3
+  const mushiesDefeatedBeforeThisStep = getMushiesDefeatedSoFar(
+    currentProgress.currentStep,
+  );
+  const totalMushiesLeft = totalMushies - mushiesDefeatedBeforeThisStep;
+  let totalDays = Math.ceil(
+    (totalMushiesLeft - ticketCount - currentProgress.mushiesRemaining) / 3,
   );
 
   return (
@@ -146,7 +148,7 @@ function App() {
           currentProgress={currentProgress}
         ></SettingsContainer>
         <TotalsContainer
-          totalMushies={totalMushies}
+          totalMushiesLeft={totalMushiesLeft}
           totalDays={totalDays}
         ></TotalsContainer>
         <div className="stage-container">
